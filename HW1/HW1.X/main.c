@@ -3,8 +3,8 @@
 
 // DEVCFG0
 #pragma config DEBUG = OFF // no debugging
-#pragma config JTAGEN = x // no jtag
-#pragma config ICESEL = x // use PGED1 and PGEC1
+#pragma config JTAGEN = OFF // no jtag
+#pragma config ICESEL = ICS_PGx1 // use PGED1 and PGEC1
 #pragma config PWP = x // no write protect
 #pragma config BWP = x // no boot write protect
 #pragma config CP = x // no code protect
