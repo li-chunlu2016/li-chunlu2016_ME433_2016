@@ -57,6 +57,9 @@ int main() {
     TRISAbits.TRISA4 = 0;   //RA4 (PIN#12) for Green LED
     LATAbits.LATA4 = 1;
     
+    TRISBbits.TRISB4 = 1;   //RB4 (PIN#11) for pushbutton
+    
+    
     __builtin_enable_interrupts();
     
     
@@ -65,10 +68,10 @@ int main() {
 		// remember the core timer runs at half the CPU speed
         
         _CP0_SET_COUNT(0);
-        while(_CP0_GET_COUNT() < 12000) {
-        ;// do nothing 
+        while(_CP0_GET_COUNT() < 12000) { 
+        ;
         }
-        // LED turn on/off for 0.5 ms
-        LATAINV = 0x10;
-        }
+            
+        LATAINV = 0x10; // LED turn on/off for 0.5 ms  
     }
+}
