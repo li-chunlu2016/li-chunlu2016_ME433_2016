@@ -14,7 +14,7 @@
 #pragma config FSOSCEN = OFF // turn off secondary oscillator
 #pragma config IESO = OFF // no switching clocks
 #pragma config POSCMOD = HS // high speed crystal mode
-#pragma config OSCIOFNC = OFF // free up secondary osc pins
+#pragma config OSCIOFNC = OFF  // free up secondary osc pins
 #pragma config FPBDIV = DIV_1 // divide CPU freq by 1 for peripheral bus clock
 #pragma config FCKSM = CSDCMD // do not enable clock switch
 #pragma config WDTPS = PS1048576 // slowest wdt
@@ -59,10 +59,17 @@ int main() {
     
     __builtin_enable_interrupts();
     
+    
     while(1) {
 	    // use _CP0_SET_COUNT(0) and _CP0_GET_COUNT() to test the PIC timing
 		// remember the core timer runs at half the CPU speed
+        
+        _CP0_SET_COUNT(0);
+        while(_CP0_GET_Count() < 12000) {
+        // LED turn on/off for 0.5 ms
+        }
+        LATAINV = 0x10;
+        }
     }
     
     
-}
