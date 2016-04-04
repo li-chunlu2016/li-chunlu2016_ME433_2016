@@ -69,9 +69,20 @@ int main() {
         
         _CP0_SET_COUNT(0);
         while(_CP0_GET_COUNT() < 12000) { 
-        ;
+            ;
         }
-            
-        LATAINV = 0x10; // LED turn on/off for 0.5 ms  
+        if (PORTBbits.RB4 == 0) {
+            LATAbits.LATA4 = 1;  
+        }
+        else {
+            LATAINV = 0x10; // LED turn on/off for 0.5 ms
+        }
     }
 }
+
+
+
+
+/*
+         
+ */
