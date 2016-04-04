@@ -66,8 +66,9 @@ int main() {
         
         _CP0_SET_COUNT(0);
         while(_CP0_GET_Count() < 12000) {
-        // LED turn on/off for 0.5 ms
+        ;// do nothing 
         }
+        // LED turn on/off for 0.5 ms
         LATAINV = 0x10;
         }
     }
