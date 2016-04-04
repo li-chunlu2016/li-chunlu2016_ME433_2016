@@ -72,10 +72,10 @@ int main() {
             ;
         }
         if (PORTBbits.RB4 == 0) {
-            LATAbits.LATA4 = 1;  
+            LATAbits.LATA4 = 1; // push button will make LED not blink.
         }
         else {
-            LATAINV = 0x10; // LED turn on/off for 0.5 ms
+            LATAINV = 0x10; // LED turn on/off for 0.5 ms, LED blinking.
         }
     }
 }
