@@ -725,8 +725,7 @@ design rules under a new name.</description>
 <element name="U$1" library="Lu_hw2" package="TO92" value="MCP1702" x="30.48" y="46.99" rot="R180"/>
 <element name="U$2" library="Lu_hw2" package="DIL28-3" value="PIC32" x="25.4" y="22.86" rot="R270"/>
 <element name="RESET_BUTTON" library="Lu_hw2" package="1X03" value="" x="46.99" y="31.75" rot="R90"/>
-<element name="R5" library="Lu_hw2" package="0207/10" value="10K" x="13.97" y="15.24"/>
-<element name="RESONATOR" library="Lu_hw2" package="1X03" value="" x="11.43" y="17.78"/>
+<element name="RESONATOR" library="Lu_hw2" package="1X03" value="" x="16.51" y="13.97" rot="R90"/>
 <element name="J1" library="Lu_hw2" package="1X08_ROUND" value="" x="3.81" y="3.81" rot="R90">
 <attribute name="PROD_ID" value="CONN-08437" x="3.81" y="3.81" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
@@ -735,9 +734,10 @@ design rules under a new name.</description>
 </element>
 <element name="J5" library="Lu_hw2" package="1X05" value="" x="3.81" y="34.29" rot="R270"/>
 <element name="U$3" library="Lu_hw2" package="SWITCH" value="SWITCH" x="36.83" y="38.1" rot="R270"/>
-<element name="LED3" library="Lu_hw2" package="LED3MM" value="" x="2.54" y="-2.54"/>
-<element name="R4" library="Lu_hw2" package="0207/10" value="330" x="6.35" y="-8.89"/>
-<element name="USER_BUTTON1" library="Lu_hw2" package="1X03" value="" x="2.54" y="-13.97"/>
+<element name="LED2" library="Lu_hw2" package="LED3MM" value="" x="17.78" y="3.81"/>
+<element name="R4" library="Lu_hw2" package="0207/10" value="330" x="12.7" y="6.35" rot="R270"/>
+<element name="USER_BUTTON1" library="Lu_hw2" package="1X03" value="" x="13.97" y="13.97" rot="R90"/>
+<element name="R2" library="Lu_hw2" package="0207/10" value="10K" x="8.89" y="13.97" rot="R270"/>
 </elements>
 <signals>
 <signal name="GND">
@@ -762,10 +762,8 @@ design rules under a new name.</description>
 <vertex x="49.53" y="0"/>
 <vertex x="0" y="0"/>
 </polygon>
-<contactref element="LED3" pad="K"/>
+<contactref element="LED2" pad="K"/>
 <contactref element="USER_BUTTON1" pad="1"/>
-<wire x1="3.81" y1="-2.54" x2="2.54" y2="-13.97" width="0" layer="19" extent="1-1"/>
-<wire x1="3.81" y1="3.81" x2="3.81" y2="-2.54" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="+3V3">
 <contactref element="U$1" pad="3"/>
@@ -776,8 +774,8 @@ design rules under a new name.</description>
 <contactref element="U$2" pad="23"/>
 <contactref element="U$2" pad="28"/>
 <contactref element="C3" pad="1"/>
-<contactref element="R5" pad="1"/>
 <contactref element="J1" pad="2"/>
+<contactref element="R2" pad="2"/>
 <wire x1="29.21" y1="39.37" x2="29.21" y2="46.99" width="0" layer="19" extent="1-1"/>
 <wire x1="36.83" y1="30.48" x2="29.21" y2="39.37" width="0" layer="19" extent="1-1"/>
 <wire x1="36.83" y1="24.13" x2="36.83" y2="30.48" width="0" layer="19" extent="1-1"/>
@@ -785,8 +783,8 @@ design rules under a new name.</description>
 <wire x1="29.21" y1="26.67" x2="36.83" y2="24.13" width="0" layer="19" extent="1-1"/>
 <wire x1="19.05" y1="26.67" x2="29.21" y2="26.67" width="0" layer="19" extent="1-1"/>
 <wire x1="8.89" y1="36.83" x2="19.05" y2="26.67" width="0" layer="19" extent="1-1"/>
-<wire x1="8.89" y1="15.24" x2="19.05" y2="26.67" width="0" layer="19" extent="1-1"/>
-<wire x1="3.81" y1="6.35" x2="8.89" y2="15.24" width="0" layer="19" extent="1-1"/>
+<wire x1="8.89" y1="8.89" x2="19.05" y2="26.67" width="0" layer="19" extent="1-1"/>
+<wire x1="3.81" y1="6.35" x2="8.89" y2="8.89" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="MCLR">
 <contactref element="R3" pad="2"/>
@@ -805,12 +803,12 @@ design rules under a new name.</description>
 <signal name="N$3">
 <contactref element="U$2" pad="9"/>
 <contactref element="RESONATOR" pad="3"/>
-<wire x1="16.51" y1="17.78" x2="21.59" y2="19.05" width="0" layer="19" extent="1-1"/>
+<wire x1="16.51" y1="19.05" x2="21.59" y2="19.05" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$5">
 <contactref element="U$2" pad="10"/>
 <contactref element="RESONATOR" pad="1"/>
-<wire x1="11.43" y1="17.78" x2="21.59" y2="16.51" width="0" layer="19" extent="1-1"/>
+<wire x1="16.51" y1="13.97" x2="21.59" y2="16.51" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$10">
 <contactref element="U$2" pad="20"/>
@@ -853,17 +851,19 @@ design rules under a new name.</description>
 </signal>
 <signal name="B4">
 <contactref element="U$2" pad="11"/>
-<contactref element="R5" pad="2"/>
 <contactref element="J1" pad="4"/>
-<wire x1="19.05" y1="15.24" x2="21.59" y2="13.97" width="0" layer="19" extent="1-1"/>
-<wire x1="3.81" y1="11.43" x2="19.05" y2="15.24" width="0" layer="19" extent="1-1"/>
+<contactref element="USER_BUTTON1" pad="3"/>
+<contactref element="R2" pad="1"/>
+<wire x1="13.97" y1="19.05" x2="21.59" y2="13.97" width="0" layer="19" extent="1-1"/>
+<wire x1="8.89" y1="19.05" x2="13.97" y2="19.05" width="0" layer="19" extent="1-1"/>
+<wire x1="3.81" y1="11.43" x2="8.89" y2="19.05" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="A4">
 <contactref element="J1" pad="3"/>
 <contactref element="R4" pad="1"/>
 <contactref element="U$2" pad="12"/>
-<wire x1="3.81" y1="8.89" x2="21.59" y2="11.43" width="0" layer="19" extent="1-1"/>
-<wire x1="1.27" y1="-8.89" x2="3.81" y2="8.89" width="0" layer="19" extent="1-1"/>
+<wire x1="12.7" y1="11.43" x2="21.59" y2="11.43" width="0" layer="19" extent="1-1"/>
+<wire x1="3.81" y1="8.89" x2="12.7" y2="11.43" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="A0">
 <contactref element="U$2" pad="2"/>
@@ -932,9 +932,9 @@ design rules under a new name.</description>
 <wire x1="7.95" y1="39.35" x2="38.83" y2="37.1" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$4">
-<contactref element="LED3" pad="A"/>
+<contactref element="LED2" pad="A"/>
 <contactref element="R4" pad="2"/>
-<wire x1="11.43" y1="-8.89" x2="1.27" y2="-2.54" width="0" layer="19" extent="1-1"/>
+<wire x1="12.7" y1="1.27" x2="16.51" y2="3.81" width="0" layer="19" extent="1-1"/>
 </signal>
 </signals>
 </board>
