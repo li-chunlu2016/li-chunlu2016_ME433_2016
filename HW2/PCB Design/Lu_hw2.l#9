@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.5" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="1" altunitdist="mm" altunit="mm"/>
+<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -14986,11 +14986,37 @@ Used on FTDI breakouts</description>
 </package>
 <package name="SWITCH">
 <pad name="P$1" x="1" y="0" drill="0.8"/>
-<pad name="P$2" x="1" y="2" drill="0.8"/>
+<pad name="P$2" x="1" y="2" drill="0.8" shape="square"/>
 <pad name="P$3" x="1" y="-2" drill="0.8"/>
-<text x="5" y="1.5" size="1.27" layer="21">1.VIN</text>
-<text x="5" y="-0.5" size="1.27" layer="21">2.GND</text>
-<text x="5" y="-2.5" size="1.27" layer="21">3.VOUT</text>
+<hole x="1" y="-4" drill="1"/>
+<hole x="1" y="4" drill="1"/>
+<wire x1="0" y1="2.5" x2="0" y2="1.5" width="0.2032" layer="21"/>
+<wire x1="0" y1="1.5" x2="0.5" y2="1" width="0.2032" layer="21"/>
+<wire x1="0.5" y1="1" x2="0" y2="0.5" width="0.2032" layer="21"/>
+<wire x1="0" y1="0.5" x2="0" y2="-0.5" width="0.2032" layer="21"/>
+<wire x1="0" y1="-0.5" x2="0.5" y2="-1" width="0.2032" layer="21"/>
+<wire x1="0.5" y1="-1" x2="0" y2="-1.5" width="0.2032" layer="21"/>
+<wire x1="0" y1="-1.5" x2="0" y2="-2.5" width="0.2032" layer="21"/>
+<wire x1="0" y1="-2.5" x2="-0.5" y2="-2.5" width="0.2032" layer="21"/>
+<wire x1="-0.5" y1="-2.5" x2="-0.5" y2="-5.5" width="0.2032" layer="21"/>
+<wire x1="-0.5" y1="-5.5" x2="2.5" y2="-5.5" width="0.2032" layer="21"/>
+<wire x1="2.5" y1="-5.5" x2="2.5" y2="-2.5" width="0.2032" layer="21"/>
+<wire x1="2.5" y1="-2.5" x2="2" y2="-2.5" width="0.2032" layer="21"/>
+<wire x1="2" y1="-2.5" x2="2" y2="-1.5" width="0.2032" layer="21"/>
+<wire x1="2" y1="-1.5" x2="1.5" y2="-1" width="0.2032" layer="21"/>
+<wire x1="1.5" y1="-1" x2="2" y2="-0.5" width="0.2032" layer="21"/>
+<wire x1="2" y1="-0.5" x2="2" y2="0.5" width="0.2032" layer="21"/>
+<wire x1="2" y1="0.5" x2="1.5" y2="1" width="0.2032" layer="21"/>
+<wire x1="1.5" y1="1" x2="2" y2="1.5" width="0.2032" layer="21"/>
+<wire x1="2" y1="1.5" x2="2" y2="2.5" width="0.2032" layer="21"/>
+<wire x1="2" y1="2.5" x2="2.5" y2="2.5" width="0.127" layer="21"/>
+<wire x1="2.5" y1="2.5" x2="2.5" y2="5.5" width="0.2032" layer="21"/>
+<wire x1="2.5" y1="5.5" x2="-0.5" y2="5.5" width="0.2032" layer="21"/>
+<wire x1="-0.5" y1="5.5" x2="-0.5" y2="2.5" width="0.2032" layer="21"/>
+<wire x1="-0.5" y1="2.5" x2="0" y2="2.5" width="0.2032" layer="21"/>
+<rectangle x1="0.8" y1="1.8" x2="1.2" y2="2.2" layer="51"/>
+<rectangle x1="0.8" y1="-0.2" x2="1.2" y2="0.2" layer="51"/>
+<rectangle x1="0.8" y1="-2.2" x2="1.2" y2="-1.8" layer="51"/>
 </package>
 </packages>
 <symbols>
@@ -15533,17 +15559,15 @@ Used on FTDI breakouts</description>
 <wire x1="17.78" y1="43.18" x2="-17.78" y2="43.18" width="0.254" layer="94"/>
 </symbol>
 <symbol name="SWITCH">
-<pin name="P$1" x="-5.08" y="0" length="middle"/>
-<pin name="P$2" x="-5.08" y="-2.54" length="middle"/>
-<pin name="P$3" x="-5.08" y="-5.08" length="middle"/>
-<pin name="P$4" x="-5.08" y="-7.62" length="middle"/>
-<pin name="P$5" x="-5.08" y="-10.16" length="middle"/>
-<wire x1="-2.54" y1="-12.7" x2="-2.54" y2="7.62" width="0.254" layer="94"/>
-<wire x1="-2.54" y1="7.62" x2="7.62" y2="7.62" width="0.254" layer="94"/>
-<wire x1="7.62" y1="7.62" x2="7.62" y2="-12.7" width="0.254" layer="94"/>
-<wire x1="7.62" y1="-12.7" x2="-2.54" y2="-12.7" width="0.254" layer="94"/>
-<text x="-2.54" y="5.08" size="1.778" layer="94">&gt;NAME</text>
-<text x="-2.54" y="2.54" size="1.778" layer="94">&gt;VALUE</text>
+<pin name="1.GND" x="-5.08" y="-2.54" length="middle"/>
+<pin name="2.VIN" x="-5.08" y="-5.08" length="middle"/>
+<pin name="3.VOUT" x="-5.08" y="-7.62" length="middle"/>
+<wire x1="-2.54" y1="-10.16" x2="-2.54" y2="5.08" width="0.254" layer="94"/>
+<wire x1="-2.54" y1="5.08" x2="7.62" y2="5.08" width="0.254" layer="94"/>
+<wire x1="7.62" y1="5.08" x2="7.62" y2="-10.16" width="0.254" layer="94"/>
+<wire x1="7.62" y1="-10.16" x2="-2.54" y2="-10.16" width="0.254" layer="94"/>
+<text x="-2.54" y="2.54" size="1.778" layer="94">&gt;NAME</text>
+<text x="-2.54" y="0" size="1.778" layer="94">&gt;VALUE</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -21649,6 +21673,23 @@ Standard 15-pin 0.1" header. Use with straight break away headers (SKU : PRT-001
 <connect gate="G$1" pin="7.B3" pad="7"/>
 <connect gate="G$1" pin="8.VSS" pad="8"/>
 <connect gate="G$1" pin="9.A2" pad="9"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="SWITCH">
+<gates>
+<gate name="G$1" symbol="SWITCH" x="-2.54" y="2.54"/>
+</gates>
+<devices>
+<device name="" package="SWITCH">
+<connects>
+<connect gate="G$1" pin="1.GND" pad="P$1"/>
+<connect gate="G$1" pin="2.VIN" pad="P$2"/>
+<connect gate="G$1" pin="3.VOUT" pad="P$3"/>
 </connects>
 <technologies>
 <technology name=""/>
