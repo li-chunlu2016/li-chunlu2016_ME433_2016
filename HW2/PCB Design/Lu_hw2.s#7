@@ -10234,9 +10234,6 @@ will be further integrated into the Sparkfun Library for other footprints.  It c
 <pad name="P$1" x="1" y="0" drill="0.8"/>
 <pad name="P$2" x="1" y="2" drill="0.8"/>
 <pad name="P$3" x="1" y="-2" drill="0.8"/>
-<text x="5" y="1.5" size="1.27" layer="21">1.GND</text>
-<text x="5" y="-0.5" size="1.27" layer="21">2.VIN</text>
-<text x="5" y="-2.5" size="1.27" layer="21">3.VOUT</text>
 <hole x="1" y="-4" drill="1"/>
 <hole x="1" y="4" drill="1"/>
 <wire x1="0" y1="2.5" x2="0" y2="1.5" width="0.2032" layer="21"/>

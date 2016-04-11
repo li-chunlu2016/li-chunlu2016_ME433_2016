@@ -14625,7 +14625,9 @@ Standard 5-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 <instance part="J5" gate="G$1" x="-88.9" y="129.54" rot="R180"/>
 <instance part="GND9" gate="1" x="43.18" y="83.82"/>
 <instance part="GND10" gate="1" x="43.18" y="53.34"/>
-<instance part="+3V4" gate="G$1" x="43.18" y="88.9" rot="R270"/>
+<instance part="+3V4" gate="G$1" x="43.18" y="88.9" smashed="yes" rot="R270">
+<attribute name="VALUE" x="43.18" y="86.36" size="1.778" layer="96"/>
+</instance>
 <instance part="P+1" gate="1" x="43.18" y="58.42" rot="R270"/>
 <instance part="GND8" gate="1" x="-25.4" y="149.86"/>
 <instance part="LED2" gate="G$1" x="58.42" y="91.44" rot="R90"/>
