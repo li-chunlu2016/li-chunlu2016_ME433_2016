@@ -15017,9 +15017,9 @@ Used on FTDI breakouts</description>
 <rectangle x1="0.8" y1="1.8" x2="1.2" y2="2.2" layer="51"/>
 <rectangle x1="0.8" y1="-0.2" x2="1.2" y2="0.2" layer="51"/>
 <rectangle x1="0.8" y1="-2.2" x2="1.2" y2="-1.8" layer="51"/>
-<text x="2.54" y="1.27" size="1.27" layer="21">GND</text>
-<text x="-3.81" y="-1.27" size="1.27" layer="21">VIN</text>
-<text x="2.54" y="-2.54" size="1.27" layer="21">VOUT</text>
+<text x="2.54" y="1.27" size="1.27" layer="21">1.GND</text>
+<text x="-3.81" y="-1.27" size="1.27" layer="21">2.VIN</text>
+<text x="2.54" y="-2.54" size="1.27" layer="21">3.VOUT</text>
 </package>
 </packages>
 <symbols>

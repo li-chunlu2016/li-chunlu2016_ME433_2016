@@ -10230,39 +10230,56 @@ will be further integrated into the Sparkfun Library for other footprints.  It c
 <text x="-1.27" y="2.54" size="0.4064" layer="25">&gt;NAME</text>
 <text x="-1.27" y="1.27" size="0.4064" layer="27">&gt;VALUE</text>
 </package>
-<package name="SWITCH">
-<pad name="2.VIN" x="1" y="0" drill="0.8"/>
-<pad name="1.GND" x="1" y="2" drill="0.8"/>
-<pad name="3.VOUT" x="1" y="-2" drill="0.8"/>
-<hole x="1" y="-4" drill="1"/>
-<hole x="1" y="4" drill="1"/>
-<wire x1="0" y1="2.5" x2="0" y2="1.5" width="0.2032" layer="21"/>
-<wire x1="0" y1="1.5" x2="0.5" y2="1" width="0.2032" layer="21"/>
-<wire x1="0.5" y1="1" x2="0" y2="0.5" width="0.2032" layer="21"/>
-<wire x1="0" y1="0.5" x2="0" y2="-0.5" width="0.2032" layer="21"/>
-<wire x1="0" y1="-0.5" x2="0.5" y2="-1" width="0.2032" layer="21"/>
-<wire x1="0.5" y1="-1" x2="0" y2="-1.5" width="0.2032" layer="21"/>
-<wire x1="0" y1="-1.5" x2="0" y2="-2.5" width="0.2032" layer="21"/>
-<wire x1="0" y1="-2.5" x2="-0.5" y2="-2.5" width="0.2032" layer="21"/>
-<wire x1="-0.5" y1="-2.5" x2="-0.5" y2="-5.5" width="0.2032" layer="21"/>
-<wire x1="-0.5" y1="-5.5" x2="2.5" y2="-5.5" width="0.2032" layer="21"/>
-<wire x1="2.5" y1="-5.5" x2="2.5" y2="-2.5" width="0.2032" layer="21"/>
-<wire x1="2.5" y1="-2.5" x2="2" y2="-2.5" width="0.2032" layer="21"/>
-<wire x1="2" y1="-2.5" x2="2" y2="-1.5" width="0.2032" layer="21"/>
-<wire x1="2" y1="-1.5" x2="1.5" y2="-1" width="0.2032" layer="21"/>
-<wire x1="1.5" y1="-1" x2="2" y2="-0.5" width="0.2032" layer="21"/>
-<wire x1="2" y1="-0.5" x2="2" y2="0.5" width="0.2032" layer="21"/>
-<wire x1="2" y1="0.5" x2="1.5" y2="1" width="0.2032" layer="21"/>
-<wire x1="1.5" y1="1" x2="2" y2="1.5" width="0.2032" layer="21"/>
-<wire x1="2" y1="1.5" x2="2" y2="2.5" width="0.2032" layer="21"/>
-<wire x1="2" y1="2.5" x2="2.5" y2="2.5" width="0.127" layer="21"/>
-<wire x1="2.5" y1="2.5" x2="2.5" y2="5.5" width="0.2032" layer="21"/>
-<wire x1="2.5" y1="5.5" x2="-0.5" y2="5.5" width="0.2032" layer="21"/>
-<wire x1="-0.5" y1="5.5" x2="-0.5" y2="2.5" width="0.2032" layer="21"/>
-<wire x1="-0.5" y1="2.5" x2="0" y2="2.5" width="0.2032" layer="21"/>
-<rectangle x1="0.8" y1="1.8" x2="1.2" y2="2.2" layer="51"/>
-<rectangle x1="0.8" y1="-0.2" x2="1.2" y2="0.2" layer="51"/>
-<rectangle x1="0.8" y1="-2.2" x2="1.2" y2="-1.8" layer="51"/>
+<package name="255SB">
+<description>&lt;b&gt;SLIDING SWITCH&lt;/b&gt;&lt;p&gt;
+distributor Buerklin, 11G810</description>
+<wire x1="-5.588" y1="3.048" x2="5.588" y2="3.048" width="0.1524" layer="21"/>
+<wire x1="5.588" y1="-3.048" x2="5.588" y2="3.048" width="0.1524" layer="21"/>
+<wire x1="5.588" y1="-3.048" x2="-5.588" y2="-3.048" width="0.1524" layer="21"/>
+<wire x1="-5.588" y1="3.048" x2="-5.588" y2="-3.048" width="0.1524" layer="21"/>
+<wire x1="3.81" y1="-1.397" x2="3.81" y2="1.397" width="0.1524" layer="51"/>
+<wire x1="-3.81" y1="1.397" x2="-3.81" y2="-1.397" width="0.1524" layer="51"/>
+<wire x1="-0.762" y1="1.27" x2="-0.762" y2="-1.27" width="0.1524" layer="51"/>
+<wire x1="-1.27" y1="0.762" x2="-1.27" y2="-0.762" width="0.1524" layer="51"/>
+<wire x1="3.81" y1="-1.524" x2="-0.762" y2="-1.524" width="0.1524" layer="21"/>
+<wire x1="-1.778" y1="1.524" x2="-1.778" y2="-1.524" width="0.1524" layer="21"/>
+<wire x1="-1.778" y1="1.524" x2="-1.27" y2="1.524" width="0.1524" layer="21"/>
+<wire x1="-1.778" y1="-1.524" x2="-2.286" y2="-1.524" width="0.1524" layer="21"/>
+<wire x1="-2.286" y1="1.524" x2="-2.286" y2="-1.524" width="0.1524" layer="21"/>
+<wire x1="-2.286" y1="1.524" x2="-1.778" y2="1.524" width="0.1524" layer="21"/>
+<wire x1="-2.794" y1="1.016" x2="-2.794" y2="-1.016" width="0.1524" layer="51"/>
+<wire x1="-3.302" y1="1.397" x2="-3.302" y2="-1.397" width="0.1524" layer="51"/>
+<wire x1="-3.81" y1="1.524" x2="-3.302" y2="1.524" width="0.1524" layer="21"/>
+<wire x1="-2.286" y1="-1.524" x2="-2.794" y2="-1.524" width="0.1524" layer="21"/>
+<wire x1="3.81" y1="-1.524" x2="3.81" y2="-1.397" width="0.1524" layer="21"/>
+<wire x1="3.81" y1="1.524" x2="3.81" y2="1.397" width="0.1524" layer="21"/>
+<wire x1="-0.762" y1="-1.27" x2="-0.762" y2="-1.524" width="0.1524" layer="21"/>
+<wire x1="-0.762" y1="-1.524" x2="-1.27" y2="-1.524" width="0.1524" layer="21"/>
+<wire x1="-1.27" y1="-1.524" x2="-1.27" y2="-0.762" width="0.1524" layer="21"/>
+<wire x1="-1.27" y1="-1.524" x2="-1.778" y2="-1.524" width="0.1524" layer="21"/>
+<wire x1="-2.794" y1="-1.016" x2="-2.794" y2="-1.524" width="0.1524" layer="21"/>
+<wire x1="-2.794" y1="-1.524" x2="-3.302" y2="-1.524" width="0.1524" layer="21"/>
+<wire x1="-3.302" y1="-1.397" x2="-3.302" y2="-1.524" width="0.1524" layer="21"/>
+<wire x1="-3.302" y1="-1.524" x2="-3.81" y2="-1.524" width="0.1524" layer="21"/>
+<wire x1="-3.81" y1="-1.397" x2="-3.81" y2="-1.524" width="0.1524" layer="21"/>
+<wire x1="-3.81" y1="1.524" x2="-3.81" y2="1.397" width="0.1524" layer="21"/>
+<wire x1="-3.302" y1="1.524" x2="-3.302" y2="1.397" width="0.1524" layer="21"/>
+<wire x1="-3.302" y1="1.524" x2="-2.794" y2="1.524" width="0.1524" layer="21"/>
+<wire x1="-2.794" y1="1.524" x2="-2.794" y2="1.016" width="0.1524" layer="21"/>
+<wire x1="-2.794" y1="1.524" x2="-2.286" y2="1.524" width="0.1524" layer="21"/>
+<wire x1="-1.27" y1="1.524" x2="-1.27" y2="0.762" width="0.1524" layer="21"/>
+<wire x1="-1.27" y1="1.524" x2="-0.762" y2="1.524" width="0.1524" layer="21"/>
+<wire x1="-0.762" y1="1.524" x2="-0.762" y2="1.27" width="0.1524" layer="21"/>
+<wire x1="-0.762" y1="1.524" x2="3.81" y2="1.524" width="0.1524" layer="21"/>
+<pad name="1" x="-2" y="0" drill="0.8" shape="long" rot="R90"/>
+<pad name="2" x="0" y="0" drill="0.8" shape="long" rot="R90"/>
+<pad name="3" x="2" y="0" drill="0.8" shape="long" rot="R90"/>
+<text x="-5.207" y="-2.794" size="1.27" layer="21" ratio="10">1</text>
+<text x="4.191" y="-2.794" size="1.27" layer="21" ratio="10">2</text>
+<text x="-5.588" y="3.556" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="0" y="3.556" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
+<pad name="P$1" x="-4" y="0" drill="1" shape="long" rot="R90"/>
+<pad name="P$2" x="4" y="0" drill="1" shape="long" rot="R90"/>
 </package>
 </packages>
 <symbols>
@@ -10463,14 +10480,26 @@ will be further integrated into the Sparkfun Library for other footprints.  It c
 <text x="-2.54" y="-5.08" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
 <pin name="+5V" x="0" y="-2.54" visible="off" length="short" direction="sup" rot="R90"/>
 </symbol>
-<symbol name="SWITCH">
-<pin name="1.GND" x="-5.08" y="-2.54" length="middle"/>
-<pin name="2.VIN" x="-5.08" y="-5.08" length="middle"/>
-<pin name="3.VOUT" x="-5.08" y="-7.62" length="middle"/>
-<wire x1="-2.54" y1="-10.16" x2="-2.54" y2="0" width="0.254" layer="94"/>
-<wire x1="-2.54" y1="0" x2="7.62" y2="0" width="0.254" layer="94"/>
-<wire x1="7.62" y1="0" x2="7.62" y2="-10.16" width="0.254" layer="94"/>
-<wire x1="7.62" y1="-10.16" x2="-2.54" y2="-10.16" width="0.254" layer="94"/>
+<symbol name="SIS">
+<wire x1="-3.81" y1="1.905" x2="-3.81" y2="0" width="0.254" layer="94"/>
+<wire x1="-3.81" y1="0" x2="-1.905" y2="0" width="0.1524" layer="94"/>
+<wire x1="-3.81" y1="0" x2="-3.81" y2="-1.905" width="0.254" layer="94"/>
+<wire x1="-1.27" y1="0" x2="-0.762" y2="0" width="0.1524" layer="94"/>
+<wire x1="0.254" y1="0" x2="0.635" y2="0" width="0.1524" layer="94"/>
+<wire x1="2.54" y1="-3.175" x2="2.54" y2="-1.905" width="0.254" layer="94"/>
+<wire x1="2.54" y1="-1.905" x2="0.635" y2="3.175" width="0.254" layer="94"/>
+<wire x1="3.81" y1="2.54" x2="5.08" y2="2.54" width="0.254" layer="94"/>
+<wire x1="5.08" y1="2.54" x2="5.08" y2="3.175" width="0.254" layer="94"/>
+<wire x1="0" y1="2.54" x2="1.27" y2="2.54" width="0.254" layer="94"/>
+<wire x1="0" y1="2.54" x2="0" y2="3.175" width="0.254" layer="94"/>
+<wire x1="1.27" y1="0" x2="1.905" y2="0" width="0.1524" layer="94"/>
+<wire x1="-0.762" y1="0" x2="-0.254" y2="-0.762" width="0.1524" layer="94"/>
+<wire x1="-0.254" y1="-0.762" x2="0.254" y2="0" width="0.1524" layer="94"/>
+<text x="-6.35" y="-1.905" size="1.778" layer="95" rot="R90">&gt;NAME</text>
+<text x="-3.81" y="3.175" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
+<pin name="P" x="2.54" y="-5.08" visible="pad" length="short" direction="pas" rot="R90"/>
+<pin name="S" x="5.08" y="5.08" visible="pad" length="short" direction="pas" rot="R270"/>
+<pin name="O" x="0" y="5.08" visible="pad" length="short" direction="pas" rot="R270"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -14511,16 +14540,18 @@ Standard 5-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 </device>
 </devices>
 </deviceset>
-<deviceset name="SWITCH" uservalue="yes">
+<deviceset name="255SB" prefix="S" uservalue="yes">
+<description>&lt;b&gt;SLIDING SWITCH&lt;/b&gt;&lt;p&gt;
+Distributor Buerklin, 11G810</description>
 <gates>
-<gate name="G$1" symbol="SWITCH" x="-2.54" y="2.54"/>
+<gate name="1" symbol="SIS" x="0" y="0"/>
 </gates>
 <devices>
-<device name="" package="SWITCH">
+<device name="" package="255SB">
 <connects>
-<connect gate="G$1" pin="1.GND" pad="1.GND"/>
-<connect gate="G$1" pin="2.VIN" pad="2.VIN"/>
-<connect gate="G$1" pin="3.VOUT" pad="3.VOUT"/>
+<connect gate="1" pin="O" pad="1"/>
+<connect gate="1" pin="P" pad="2"/>
+<connect gate="1" pin="S" pad="3"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -14577,7 +14608,6 @@ Standard 5-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 <part name="GND10" library="Lu_hw2" deviceset="GND" device=""/>
 <part name="+3V4" library="Lu_hw2" deviceset="+3V3" device=""/>
 <part name="P+1" library="Lu_hw2" deviceset="+5V" device=""/>
-<part name="GND8" library="Lu_hw2" deviceset="GND" device=""/>
 <part name="LED2" library="Lu_hw2" deviceset="LED" device="3MM"/>
 <part name="GND16" library="Lu_hw2" deviceset="GND" device=""/>
 <part name="R4" library="Lu_hw2" deviceset="R-US_" device="0207/10" value="330"/>
@@ -14585,7 +14615,7 @@ Standard 5-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 <part name="GND15" library="Lu_hw2" deviceset="GND" device=""/>
 <part name="R2" library="Lu_hw2" deviceset="R-US_" device="0207/10" value="10K"/>
 <part name="+3V6" library="Lu_hw2" deviceset="+3V3" device=""/>
-<part name="U$3" library="Lu_hw2" deviceset="SWITCH" device=""/>
+<part name="SWITCH" library="Lu_hw2" deviceset="255SB" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -14631,7 +14661,6 @@ Standard 5-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 <attribute name="VALUE" x="43.18" y="86.36" size="1.778" layer="96"/>
 </instance>
 <instance part="P+1" gate="1" x="43.18" y="58.42" rot="R270"/>
-<instance part="GND8" gate="1" x="-25.4" y="149.86"/>
 <instance part="LED2" gate="G$1" x="58.42" y="91.44" rot="R90"/>
 <instance part="GND16" gate="1" x="73.66" y="88.9"/>
 <instance part="R4" gate="G$1" x="50.8" y="91.44"/>
@@ -14642,7 +14671,10 @@ Standard 5-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 <attribute name="VALUE" x="54.61" y="95.758" size="1.778" layer="96"/>
 </instance>
 <instance part="+3V6" gate="G$1" x="71.12" y="99.06" rot="R270"/>
-<instance part="U$3" gate="G$1" x="-5.08" y="154.94"/>
+<instance part="SWITCH" gate="1" x="-12.7" y="152.4" smashed="yes" rot="R90">
+<attribute name="NAME" x="-3.175" y="158.75" size="1.778" layer="95" rot="R180"/>
+<attribute name="VALUE" x="-15.875" y="148.59" size="1.778" layer="96" rot="R180"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -14713,11 +14745,6 @@ Standard 5-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 <pinref part="J3" gate="G$1" pin="1"/>
 <pinref part="GND10" gate="1" pin="GND"/>
 <wire x1="17.78" y1="55.88" x2="43.18" y2="55.88" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<wire x1="-10.16" y1="152.4" x2="-25.4" y2="152.4" width="0.1524" layer="91"/>
-<pinref part="GND8" gate="1" pin="GND"/>
-<pinref part="U$3" gate="G$1" pin="1.GND"/>
 </segment>
 <segment>
 <pinref part="LED2" gate="G$1" pin="C"/>
@@ -15078,19 +15105,17 @@ Standard 5-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 <wire x1="-20.32" y1="20.32" x2="-50.8" y2="20.32" width="0.1524" layer="91"/>
 <wire x1="-17.78" y1="137.16" x2="-20.32" y2="137.16" width="0.1524" layer="91"/>
 <junction x="-20.32" y="137.16"/>
-<wire x1="-10.16" y1="147.32" x2="-17.78" y2="147.32" width="0.1524" layer="91"/>
-<wire x1="-17.78" y1="147.32" x2="-17.78" y2="137.16" width="0.1524" layer="91"/>
+<wire x1="-17.78" y1="152.4" x2="-17.78" y2="137.16" width="0.1524" layer="91"/>
 <label x="-17.78" y="144.78" size="1.778" layer="95"/>
-<pinref part="U$3" gate="G$1" pin="3.VOUT"/>
+<pinref part="SWITCH" gate="1" pin="O"/>
 </segment>
 </net>
 <net name="N$1" class="0">
 <segment>
 <pinref part="J2" gate="G$1" pin="VBUS"/>
-<wire x1="20.32" y1="137.16" x2="-15.24" y2="137.16" width="0.1524" layer="91"/>
-<wire x1="-15.24" y1="137.16" x2="-15.24" y2="149.86" width="0.1524" layer="91"/>
-<wire x1="-15.24" y1="149.86" x2="-10.16" y2="149.86" width="0.1524" layer="91"/>
-<pinref part="U$3" gate="G$1" pin="2.VIN"/>
+<wire x1="20.32" y1="137.16" x2="-7.62" y2="137.16" width="0.1524" layer="91"/>
+<wire x1="-7.62" y1="137.16" x2="-7.62" y2="154.94" width="0.1524" layer="91"/>
+<pinref part="SWITCH" gate="1" pin="P"/>
 </segment>
 </net>
 <net name="N$4" class="0">
