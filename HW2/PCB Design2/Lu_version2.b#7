@@ -144,43 +144,6 @@
 <wire x1="50" y1="0" x2="50" y2="50" width="0" layer="20"/>
 <wire x1="50" y1="50" x2="0" y2="50" width="0" layer="20"/>
 <wire x1="0" y1="50" x2="0" y2="0" width="0" layer="20"/>
-<text x="45.72" y="34.29" size="0.6096" layer="21">B15</text>
-<text x="45.72" y="31.75" size="0.6096" layer="21">B14</text>
-<text x="45.72" y="29.21" size="0.6096" layer="21">B13</text>
-<text x="45.72" y="26.67" size="0.6096" layer="21">B9</text>
-<text x="45.72" y="24.13" size="0.6096" layer="21">B8</text>
-<text x="45.72" y="21.59" size="0.6096" layer="21">B7</text>
-<text x="45.72" y="19.05" size="0.6096" layer="21">5V</text>
-<text x="45.72" y="16.51" size="0.6096" layer="21">GND</text>
-<text x="3.175" y="47.625" size="0.6096" layer="21">MCLR</text>
-<text x="3.175" y="45.085" size="0.6096" layer="21">VDD</text>
-<text x="3.175" y="42.545" size="0.6096" layer="21">VSS</text>
-<text x="3.175" y="40.005" size="0.6096" layer="21">PGD1</text>
-<text x="3.175" y="37.465" size="0.6096" layer="21">PGC1</text>
-<text x="3.175" y="33.655" size="0.6096" layer="21">A0</text>
-<text x="3.175" y="31.115" size="0.6096" layer="21">A1</text>
-<text x="3.175" y="28.575" size="0.6096" layer="21">B2</text>
-<text x="3.175" y="26.035" size="0.6096" layer="21">B3</text>
-<text x="3.175" y="23.495" size="0.6096" layer="21">B4</text>
-<text x="3.175" y="20.955" size="0.6096" layer="21">A4</text>
-<text x="3.175" y="18.415" size="0.6096" layer="21">3V3</text>
-<text x="3.175" y="15.875" size="0.6096" layer="21">GND</text>
-<text x="9.525" y="7.62" size="0.6096" layer="21">VBUS</text>
-<text x="10.16" y="5.08" size="0.6096" layer="21">D+</text>
-<text x="10.16" y="3.175" size="0.6096" layer="21">GND</text>
-<text x="5.715" y="3.175" size="0.6096" layer="21">ID</text>
-<text x="5.715" y="6.35" size="0.6096" layer="21">D-</text>
-<text x="29.21" y="43.18" size="0.6096" layer="21">GND</text>
-<text x="31.75" y="40.64" size="0.6096" layer="21">5V</text>
-<text x="28.575" y="37.465" size="0.6096" layer="21">3V3</text>
-<text x="33.02" y="1.27" size="0.8128" layer="21">Li-Chun Lu
-Northwestern University
-ME433 Advanced Mechatronics
-April 2016</text>
-<text x="44.45" y="36.195" size="1.778" layer="22" rot="MR0">Li-Chun Lu
-Northwestern University
-ME433 Advanced Mechatronics
-April 2016</text>
 </plain>
 <libraries>
 <library name="Lu_hw2">
@@ -769,72 +732,28 @@ design rules under a new name.</description>
 <element name="C2" library="Lu_hw2" package="C025-030X050" value="0.1uF" x="9.525" y="13.335"/>
 <element name="C3" library="Lu_hw2" package="C025-030X050" value="0.1uF" x="40.005" y="22.86"/>
 <element name="C5" library="Lu_hw2" package="B45181A" value="10uF" x="9.525" y="19.05"/>
-<element name="C6" library="Lu_hw2" package="B45181A" value="10uF" x="34.29" y="19.05" smashed="yes">
-<attribute name="NAME" x="32.385" y="21.59" size="1.27" layer="25" ratio="10"/>
-<attribute name="VALUE" x="32.258" y="14.859" size="1.27" layer="27" ratio="10"/>
-</element>
-<element name="C7" library="Lu_hw2" package="C025-030X050" value="1uF" x="37.465" y="40.64" smashed="yes" rot="R180">
-<attribute name="NAME" x="37.211" y="43.815" size="1.27" layer="25" ratio="10" rot="R180"/>
-<attribute name="VALUE" x="42.926" y="40.513" size="1.27" layer="27" ratio="10" rot="R180"/>
-</element>
-<element name="C8" library="Lu_hw2" package="C025-030X050" value="1uF" x="41.275" y="35.56" smashed="yes" rot="R270">
-<attribute name="NAME" x="38.1" y="35.941" size="1.27" layer="25" ratio="10" rot="R270"/>
-<attribute name="VALUE" x="43.307" y="37.211" size="1.27" layer="27" ratio="10" rot="R270"/>
-</element>
-<element name="J1" library="Lu_hw2" package="1X08_ROUND" value="" x="1.27" y="16.51" smashed="yes" rot="R90">
+<element name="C6" library="Lu_hw2" package="B45181A" value="10uF" x="34.29" y="19.05"/>
+<element name="C7" library="Lu_hw2" package="C025-030X050" value="1uF" x="37.465" y="40.64" rot="R180"/>
+<element name="C8" library="Lu_hw2" package="C025-030X050" value="1uF" x="41.275" y="35.56" rot="R270"/>
+<element name="J1" library="Lu_hw2" package="1X08_ROUND" value="" x="1.27" y="16.51" rot="R90">
 <attribute name="PROD_ID" value="CONN-08437" x="1.27" y="16.51" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="VALUE" x="4.445" y="15.24" size="1.27" layer="27" rot="R90"/>
 </element>
-<element name="J2" library="Lu_hw2" package="USB-MB-H" value="USB-MB-H" x="3.81" y="5.08" smashed="yes"/>
-<element name="J3" library="Lu_hw2" package="1X08_ROUND" value="" x="48.895" y="16.51" smashed="yes" rot="R90">
+<element name="J2" library="Lu_hw2" package="USB-MB-H" value="USB-MB-H" x="3.81" y="5.08"/>
+<element name="J3" library="Lu_hw2" package="1X08_ROUND" value="" x="48.895" y="16.51" rot="R90">
 <attribute name="PROD_ID" value="CONN-08437" x="48.895" y="16.51" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="VALUE" x="52.07" y="15.24" size="1.27" layer="27" rot="R90"/>
 </element>
-<element name="J5" library="Lu_hw2" package="1X05" value="" x="1.27" y="46.99" smashed="yes" rot="R270">
-<attribute name="VALUE" x="-1.905" y="48.26" size="1.27" layer="27" rot="R270"/>
-</element>
-<element name="LED1" library="Lu_hw2" package="LED3MM" value="" x="35.56" y="35.56" smashed="yes">
-<attribute name="NAME" x="31.75" y="37.846" size="1.27" layer="25" ratio="10"/>
-<attribute name="VALUE" x="37.465" y="33.909" size="1.27" layer="27" ratio="10"/>
-</element>
-<element name="LED2" library="Lu_hw2" package="LED3MM" value="" x="15.24" y="34.925" smashed="yes">
-<attribute name="NAME" x="12.7" y="37.211" size="1.27" layer="25" ratio="10"/>
-<attribute name="VALUE" x="17.145" y="33.274" size="1.27" layer="27" ratio="10"/>
-</element>
-<element name="R1" library="Lu_hw2" package="0207/10" value="330" x="39.37" y="29.845" smashed="yes" rot="R180">
-<attribute name="NAME" x="39.243" y="32.131" size="1.27" layer="25" ratio="10" rot="R180"/>
-<attribute name="VALUE" x="40.9956" y="27.94" size="1.27" layer="27" ratio="10" rot="R180"/>
-</element>
-<element name="R2" library="Lu_hw2" package="0207/10" value="10K" x="46.355" y="41.91" smashed="yes" rot="R270">
-<attribute name="NAME" x="43.434" y="43.688" size="1.27" layer="25" ratio="10" rot="R270"/>
-<attribute name="VALUE" x="47.625" y="44.1706" size="1.27" layer="27" ratio="10" rot="R270"/>
-</element>
-<element name="R3" library="Lu_hw2" package="0207/10" value="10K" x="8.255" y="41.91" smashed="yes" rot="R90">
-<attribute name="NAME" x="6.731" y="39.497" size="1.27" layer="25" ratio="10" rot="R90"/>
-<attribute name="VALUE" x="10.795" y="37.7444" size="1.27" layer="27" ratio="10" rot="R90"/>
-</element>
-<element name="R4" library="Lu_hw2" package="0207/10" value="330" x="10.16" y="29.845" smashed="yes" rot="R90">
-<attribute name="NAME" x="8.636" y="26.797" size="1.27" layer="25" ratio="10" rot="R90"/>
-<attribute name="VALUE" x="12.7" y="29.4894" size="1.27" layer="27" ratio="10" rot="R90"/>
-</element>
-<element name="RESET" library="Lu_hw2" package="1X03" value="" x="31.75" y="46.99" smashed="yes" rot="R180">
-<attribute name="NAME" x="31.1912" y="49.6062" size="1.27" layer="25" ratio="10" rot="R180"/>
-<attribute name="VALUE" x="33.02" y="50.165" size="1.27" layer="27" rot="R180"/>
-</element>
-<element name="U$1" library="Lu_hw2" package="TO92" value="MCP1702" x="27.94" y="40.64" smashed="yes" rot="R270">
-<attribute name="VALUE" x="24.765" y="45.085" size="1.27" layer="27" ratio="10" rot="R270"/>
-</element>
-<element name="U$2" library="Lu_hw2" package="DIL28-3" value="PIC32" x="24.13" y="19.05" smashed="yes" rot="R270">
-<attribute name="VALUE" x="23.495" y="27.559" size="1.27" layer="27" ratio="10" rot="R270"/>
-</element>
-<element name="USER" library="Lu_hw2" package="1X03" value="" x="34.29" y="46.99" smashed="yes">
-<attribute name="NAME" x="40.5638" y="48.1838" size="1.27" layer="25" ratio="10"/>
-<attribute name="VALUE" x="33.02" y="43.815" size="1.27" layer="27"/>
-</element>
-<element name="SWITCH" library="Lu_hw2" package="255SB" value="" x="17.145" y="45.72" smashed="yes">
-<attribute name="NAME" x="11.049" y="42.672" size="1.27" layer="25" ratio="10" rot="R90"/>
-<attribute name="VALUE" x="17.145" y="49.276" size="1.27" layer="27" ratio="10"/>
-</element>
+<element name="J5" library="Lu_hw2" package="1X05" value="" x="1.27" y="46.99" rot="R270"/>
+<element name="LED1" library="Lu_hw2" package="LED3MM" value="" x="35.56" y="35.56"/>
+<element name="LED2" library="Lu_hw2" package="LED3MM" value="" x="15.24" y="34.925"/>
+<element name="R1" library="Lu_hw2" package="0207/10" value="330" x="39.37" y="29.845" rot="R180"/>
+<element name="R2" library="Lu_hw2" package="0207/10" value="10K" x="46.355" y="41.91" rot="R270"/>
+<element name="R3" library="Lu_hw2" package="0207/10" value="10K" x="8.255" y="41.91" rot="R90"/>
+<element name="R4" library="Lu_hw2" package="0207/10" value="330" x="10.16" y="29.845" rot="R90"/>
+<element name="RESET" library="Lu_hw2" package="1X03" value="" x="31.75" y="46.99" rot="R180"/>
+<element name="U$1" library="Lu_hw2" package="TO92" value="MCP1702" x="27.94" y="40.64" rot="R270"/>
+<element name="U$2" library="Lu_hw2" package="DIL28-3" value="PIC32" x="24.13" y="19.05" rot="R270"/>
+<element name="USER" library="Lu_hw2" package="1X03" value="" x="34.29" y="46.99"/>
+<element name="SWITCH" library="Lu_hw2" package="255SB" value="" x="17.145" y="45.72"/>
 </elements>
 <signals>
 <signal name="GND">
@@ -862,6 +781,7 @@ design rules under a new name.</description>
 </polygon>
 <wire x1="31.75" y1="46.99" x2="27.94" y2="43.18" width="0.4064" layer="1"/>
 <wire x1="27.94" y1="43.18" x2="27.94" y2="41.91" width="0.4064" layer="1"/>
+<wire x1="8.91" y1="3.48" x2="15.875" y2="13.335" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="+3V3">
 <contactref element="U$1" pad="3"/>
@@ -1147,15 +1067,18 @@ design rules under a new name.</description>
 <contactref element="SWITCH" pad="2"/>
 <wire x1="8.91" y1="6.68" x2="11.1" y2="6.68" width="0.4064" layer="1"/>
 <wire x1="11.1" y1="6.68" x2="13.97" y2="3.81" width="0.4064" layer="1"/>
-<wire x1="13.97" y1="3.81" x2="31.115" y2="3.81" width="0.4064" layer="1"/>
-<via x="31.115" y="3.81" extent="1-16" drill="0.6"/>
-<wire x1="31.115" y1="3.81" x2="31.115" y2="20.955" width="0.4064" layer="16"/>
-<via x="31.115" y="20.955" extent="1-16" drill="0.6"/>
-<wire x1="31.115" y1="20.955" x2="31.115" y2="43.18" width="0.4064" layer="1"/>
-<via x="31.115" y="43.18" extent="1-16" drill="0.6"/>
-<wire x1="31.115" y1="43.18" x2="17.78" y2="43.18" width="0.4064" layer="16"/>
-<wire x1="17.145" y1="45.72" x2="17.145" y2="43.815" width="0.4064" layer="16"/>
-<wire x1="17.145" y1="43.815" x2="17.78" y2="43.18" width="0.4064" layer="16"/>
+<via x="13.97" y="3.81" extent="1-16" drill="0.6"/>
+<wire x1="13.97" y1="3.81" x2="29.21" y2="3.81" width="0.4064" layer="16"/>
+<wire x1="29.21" y1="3.81" x2="31.115" y2="5.715" width="0.4064" layer="16"/>
+<wire x1="31.115" y1="5.715" x2="31.115" y2="18.415" width="0.4064" layer="16"/>
+<wire x1="31.115" y1="18.415" x2="30.48" y2="19.05" width="0.4064" layer="16"/>
+<via x="30.48" y="19.05" extent="1-16" drill="0.6"/>
+<wire x1="30.48" y1="19.05" x2="30.48" y2="37.465" width="0.4064" layer="1"/>
+<wire x1="30.48" y1="37.465" x2="33.02" y2="40.005" width="0.4064" layer="1"/>
+<wire x1="33.02" y1="40.005" x2="33.02" y2="43.18" width="0.4064" layer="1"/>
+<via x="33.02" y="43.18" extent="1-16" drill="0.6"/>
+<wire x1="33.02" y1="43.18" x2="19.685" y2="43.18" width="0.4064" layer="16"/>
+<wire x1="19.685" y1="43.18" x2="17.145" y2="45.72" width="0.4064" layer="16"/>
 </signal>
 <signal name="N$4">
 <contactref element="LED2" pad="A"/>
@@ -1165,46 +1088,12 @@ design rules under a new name.</description>
 <signal name="B5">
 <contactref element="U$2" pad="14"/>
 <contactref element="J2" pad="ID"/>
-<wire x1="7.71" y1="4.28" x2="7.71" y2="1.18" width="0.4064" layer="1"/>
-<wire x1="7.71" y1="1.18" x2="8.255" y2="0.635" width="0.4064" layer="1"/>
-<wire x1="8.255" y1="0.635" x2="18.415" y2="0.635" width="0.4064" layer="1"/>
-<wire x1="18.415" y1="0.635" x2="20.32" y2="2.54" width="0.4064" layer="1"/>
+<wire x1="7.71" y1="4.28" x2="7.71" y2="2.45" width="0.4064" layer="16"/>
+<wire x1="7.71" y1="2.45" x2="8.89" y2="1.27" width="0.4064" layer="16"/>
+<wire x1="8.89" y1="1.27" x2="19.05" y2="1.27" width="0.4064" layer="16"/>
+<wire x1="19.05" y1="1.27" x2="20.32" y2="2.54" width="0.4064" layer="16"/>
 </signal>
 </signals>
-<errors>
-<approved hash="4,1,7d4cd2e1310cf25f"/>
-<approved hash="5,1,4d75923f52d4245d"/>
-<approved hash="5,1,87815bdbd2c0a689"/>
-<approved hash="5,1,87a1526bda70a6a9"/>
-<approved hash="5,1,4d159aef5a8424dd"/>
-<approved hash="4,1,3fba10e0ef68c2f2"/>
-<approved hash="4,1,23130549fdb1dd9b"/>
-<approved hash="4,1,08ed2d97d29ff025"/>
-<approved hash="4,1,c441f83b19a33bd9"/>
-<approved hash="4,1,d1f8f7920ada2ef0"/>
-<approved hash="4,1,1a443a3ec7b6e5dc"/>
-<approved hash="4,1,caeeeb84148c3626"/>
-<approved hash="4,1,f1b7deed215500cf"/>
-<approved hash="4,16,7d4cd2e1310cf25f"/>
-<approved hash="5,16,4d75923f52d4245d"/>
-<approved hash="5,16,87815bdbd2c0a689"/>
-<approved hash="5,16,87a1526bda70a6a9"/>
-<approved hash="5,16,4d159aef5a8424dd"/>
-<approved hash="4,16,d1f8f7920ada2ef0"/>
-<approved hash="4,16,3fba10e0ef68c2f2"/>
-<approved hash="4,16,1a443a3ec7b6e5dc"/>
-<approved hash="4,16,23130549fdb1dd9b"/>
-<approved hash="4,16,08ed2d97d29ff025"/>
-<approved hash="4,16,c441f83b19a33bd9"/>
-<approved hash="4,16,caeeeb84148c3626"/>
-<approved hash="4,16,f1b7deed215500cf"/>
-</errors>
 </board>
 </drawing>
-<compatibility>
-<note version="6.3" minversion="6.2.2" severity="warning">
-Since Version 6.2.2 text objects can contain more than one line,
-which will not be processed correctly with this version.
-</note>
-</compatibility>
 </eagle>
