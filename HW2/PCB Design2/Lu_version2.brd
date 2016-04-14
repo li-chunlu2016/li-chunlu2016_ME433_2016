@@ -173,7 +173,7 @@
 <text x="29.21" y="43.18" size="0.6096" layer="21">GND</text>
 <text x="31.75" y="40.64" size="0.6096" layer="21">5V</text>
 <text x="28.575" y="37.465" size="0.6096" layer="21">3V3</text>
-<text x="33.655" y="1.27" size="0.8128" layer="21">Li-Chun Lu
+<text x="48.895" y="5.715" size="0.8128" layer="21" rot="R180">Li-Chun Lu
 Northwestern University
 ME433 Advanced Mechatronics
 April 2016</text>
