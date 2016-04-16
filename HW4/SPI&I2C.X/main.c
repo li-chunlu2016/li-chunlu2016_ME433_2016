@@ -36,6 +36,7 @@
 #pragma config FUSBIDIO = ON // USB pins controlled by USB module
 #pragma config FVBUSONIO = ON // USB BUSON controlled by USB module
 
+#define CS LATBbits.LATB7 // chip select pin
 
 int main() {
 
@@ -60,7 +61,24 @@ int main() {
 }
 
 void initSPI1(){
-
+    // set up the chip select pin as an output
+    // the chip select pin is used by the sram to indicate
+    // when a command is beginning (clear CS to low) and when it
+    // is ending (set CS high)
+    TRISBbits.TRISB7 = 0b0;
+    CS = 1;
+    SS1Rbits.SS1R = 0b0100; // assign SS1 to RB7
+    SDI1Rbits.SDI1R = 0b0000; // assign SDI1 to RA1 
+    RPB8Rbits.RPB8R = 0b0011; // assign SDO1 to RB8
+    
+    // setup SPI1
+    SPI1CON = 0;              // turn off the SPI1 module and reset it
+    SPI1BUF;                  // clear the rx buffer by reading from it
+    SPI1BRG = 0x3;            // baud rate to 10 MHz [SPI4BRG = (80000000/(2*desired))-1]
+    SPI1STATbits.SPIROV = 0;  // clear the overflow bit
+    SPI1CONbits.CKE = 1;      // data changes when clock goes from hi to lo (since CKP is 0)
+    SPI1CONbits.MSTEN = 1;    // master operation
+    SPI1CONbits.ON = 1;       // turn on SPI 1
 }
 
 
