@@ -58,3 +58,32 @@ int main() {
     __builtin_enable_interrupts();
     
 }
+
+void initSPI1(){
+
+}
+
+
+void initI2C2(){
+    
+}
+
+char SPI1_IO(char write){
+    
+}
+
+void initExpander(){
+    
+}
+
+void setVoltage(char channel, char voltage){
+    
+}
+
+void setExpander(char pin, char level){
+    
+}
+
+char getExpander(){
+    
+}
