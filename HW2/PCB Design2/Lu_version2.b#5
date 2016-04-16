@@ -144,6 +144,35 @@
 <wire x1="50" y1="0" x2="50" y2="50" width="0" layer="20"/>
 <wire x1="50" y1="50" x2="0" y2="50" width="0" layer="20"/>
 <wire x1="0" y1="50" x2="0" y2="0" width="0" layer="20"/>
+<text x="45.72" y="34.29" size="0.6096" layer="21">B15</text>
+<text x="45.72" y="31.75" size="0.6096" layer="21">B14</text>
+<text x="45.72" y="29.21" size="0.6096" layer="21">B13</text>
+<text x="45.72" y="26.67" size="0.6096" layer="21">B9</text>
+<text x="45.72" y="24.13" size="0.6096" layer="21">B8</text>
+<text x="45.72" y="21.59" size="0.6096" layer="21">B7</text>
+<text x="45.72" y="19.05" size="0.6096" layer="21">5V</text>
+<text x="45.72" y="16.51" size="0.6096" layer="21">GND</text>
+<text x="3.175" y="47.625" size="0.6096" layer="21">MCLR</text>
+<text x="3.175" y="45.085" size="0.6096" layer="21">VDD</text>
+<text x="3.175" y="42.545" size="0.6096" layer="21">VSS</text>
+<text x="3.175" y="40.005" size="0.6096" layer="21">PGD1</text>
+<text x="3.175" y="37.465" size="0.6096" layer="21">PGC1</text>
+<text x="3.175" y="33.655" size="0.6096" layer="21">A0</text>
+<text x="3.175" y="31.115" size="0.6096" layer="21">A1</text>
+<text x="3.175" y="28.575" size="0.6096" layer="21">B2</text>
+<text x="3.175" y="26.035" size="0.6096" layer="21">B3</text>
+<text x="3.175" y="23.495" size="0.6096" layer="21">B4</text>
+<text x="3.175" y="20.955" size="0.6096" layer="21">A4</text>
+<text x="3.175" y="18.415" size="0.6096" layer="21">3V3</text>
+<text x="3.175" y="15.875" size="0.6096" layer="21">GND</text>
+<text x="9.525" y="7.62" size="0.6096" layer="21">VBUS</text>
+<text x="10.16" y="5.08" size="0.6096" layer="21">D+</text>
+<text x="10.16" y="3.175" size="0.6096" layer="21">GND</text>
+<text x="5.715" y="3.175" size="0.6096" layer="21">ID</text>
+<text x="5.715" y="6.35" size="0.6096" layer="21">D-</text>
+<text x="29.21" y="43.18" size="0.6096" layer="21">B15</text>
+<text x="31.75" y="40.64" size="0.6096" layer="21">B15</text>
+<text x="28.575" y="37.465" size="0.6096" layer="21">B15</text>
 </plain>
 <libraries>
 <library name="Lu_hw2">

@@ -170,9 +170,9 @@
 <text x="10.16" y="3.175" size="0.6096" layer="21">GND</text>
 <text x="5.715" y="3.175" size="0.6096" layer="21">ID</text>
 <text x="5.715" y="6.35" size="0.6096" layer="21">D-</text>
-<text x="29.21" y="43.18" size="0.6096" layer="21">B15</text>
-<text x="31.75" y="40.64" size="0.6096" layer="21">B15</text>
-<text x="28.575" y="37.465" size="0.6096" layer="21">B15</text>
+<text x="29.21" y="43.18" size="0.6096" layer="21">GND</text>
+<text x="31.75" y="40.64" size="0.6096" layer="21">5V</text>
+<text x="28.575" y="37.465" size="0.6096" layer="21">3V3</text>
 </plain>
 <libraries>
 <library name="Lu_hw2">
