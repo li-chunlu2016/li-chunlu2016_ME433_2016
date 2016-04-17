@@ -46,6 +46,11 @@ void initExpander();
 void setExpander(char pin, char level);
 char getExpander();
 
+
+void __ISR(_TIMER_2_VECTOR, IPL5SOFT) Controller(void) {
+    
+    IFS0bits.T2IF = 0;
+}
 int main() {
 
     __builtin_disable_interrupts();
@@ -65,14 +70,25 @@ int main() {
     // do your TRIS and LAT commands here
     TRISAbits.TRISA4 = 0;   //RA4 (PIN#12) for Green LED
     LATAbits.LATA4 = 1;
-    
     TRISBbits.TRISB4 = 1;   //RB4 (PIN#11) for pushbutton
+    
+    // Timer2: updating value at 1000 times a second
+    PR2 = 6000;                   // period = (PR2+1) * N * (1/48000000)s = 0.001 s, 1 kHz
+    TMR2 = 0;                     // initial TMR2 count is 0
+    T2CONbits.TCKPS = 0b011;      // Timer2 prescaler N=8 (1:8)
+    T2CONbits.ON = 1;             // turn on Timer2
+    IPC2bits.T2IP = 5;            // step 4: interrupt priority
+    IPC2bits.T2IS = 0;            // step 4: interrupt priority
+    IFS0bits.T2IF = 0;            // step 5: clear the int flag
+    IEC0bits.T2IE = 1;            // step 6: enable Timer2 by setting IEC0<11>
+    
     __builtin_enable_interrupts();
     
     init_spi1();
     while(1){
-        setVoltage(0, 255);
-        setVoltage(1, 127);
+        setVoltage(0, 255); // set VoutA to 3.3
+        setVoltage(1, 127); // set VoutB to 1.5 
+        
         _CP0_SET_COUNT(0);
         while(_CP0_GET_COUNT() < 12000) { 
             ;
