@@ -38,6 +38,14 @@
 
 #define CS LATBbits.LATB7 // chip select pin
 
+char SPI1_IO(char write);
+void init_spi1();
+void setVoltage(char channel, unsigned char voltage);
+void initI2C2();
+void initExpander();
+void setExpander(char pin, char level);
+char getExpander();
+
 int main() {
 
     __builtin_disable_interrupts();
@@ -58,9 +66,13 @@ int main() {
 
     __builtin_enable_interrupts();
     
+    init_spi1();
+    while(1){
+        setVoltage(0, 255);
+    }
 }
 
-void initSPI1(){
+void init_spi1(){
     // set up the chip select pin as an output
     // the chip select pin is used by the MCP4902DAC to indicate
     // when a command is beginning (clear CS to low) and when it
@@ -91,19 +103,19 @@ char SPI1_IO(char write){
     return SPI1BUF; 
 }
 
-void setVoltage(char channel, char voltage){
-    if(channel == '0') { // 0 for VoutA
+void setVoltage(char channel, unsigned char voltage){
+    if(channel == 0) { // 0 for VoutA
         CS = 0; 
-        SPI1_IO = (0x7 << 12); // 4 configuration bits
-        SPI1_IO = (voltage << 4); // Data bits
-        SPI1_IO = 0x0; // ignore bit
+        SPI1_IO(0x7 << 12); // 4 configuration bits
+        SPI1_IO(voltage << 4); // Data bits
+        SPI1_IO(0x0); // ignore bit
         CS = 1;   
     }
-    if(channel == '1') { // 1 for VoutB
+    if(channel == 1) { // 1 for VoutB
         CS = 0; 
-        SPI1_IO = (0xF << 12); // 4 configuration bits
-        SPI1_IO = (voltage << 4); // Data bits
-        SPI1_IO = 0x0;// ignore bit
+        SPI1_IO(0xF << 12); // 4 configuration bits
+        SPI1_IO(voltage << 4); // Data bits
+        SPI1_IO(0x0);// ignore bit
         CS = 1;   
     }
 }
