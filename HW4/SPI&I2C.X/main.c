@@ -106,16 +106,15 @@ char SPI1_IO(char write){
 void setVoltage(char channel, unsigned char voltage){
     if(channel == 0) { // 0 for VoutA
         CS = 0; 
-        SPI1_IO(0x7 << 12); // 4 configuration bits
-        SPI1_IO(voltage << 4); // Data bits
-        SPI1_IO(0x0); // ignore bit
+        SPI1_IO((voltage >> 4) | 0b01110000); // 4 configuration bits
+        SPI1_IO(voltage << 4); // Data bits 
+        
         CS = 1;   
     }
     if(channel == 1) { // 1 for VoutB
         CS = 0; 
-        SPI1_IO(0xF << 12); // 4 configuration bits
+        SPI1_IO((voltage >> 4) | 0b11110000); // 4 configuration bits
         SPI1_IO(voltage << 4); // Data bits
-        SPI1_IO(0x0);// ignore bit
         CS = 1;   
     }
 }
