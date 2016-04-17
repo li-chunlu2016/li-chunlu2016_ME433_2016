@@ -1,5 +1,6 @@
 #include<xc.h>           // processor SFR definitions
 #include<sys/attribs.h>  // __ISR macro
+#include <math.h>
 
 // DEVCFG0
 #pragma config DEBUG = OFF // no debugging
@@ -37,6 +38,12 @@
 #pragma config FVBUSONIO = ON // USB BUSON controlled by USB module
 
 #define CS LATBbits.LATB7 // chip select pin
+#define SinCount 100
+#define TriangleCount 200
+#define PI 3.14159265
+
+static volatile float SineWaveform[SinCount];   // sine waveform
+static volatile float TriangleWaveform[TriangleCount];   // triangle waveform
 
 char SPI1_IO(char write);
 void init_spi1();
@@ -45,10 +52,23 @@ void initI2C2();
 void initExpander();
 void setExpander(char pin, char level);
 char getExpander();
-
+void makeSinWave();
+void makeTriangleWave();
 
 void __ISR(_TIMER_2_VECTOR, IPL5SOFT) Controller(void) {
-    LATAINV = 0x10;
+    static int count1 = 0;
+    static int count2 = 0;
+    LATAINV = 0x10; // make sure timer2 works
+    setVoltage(0,SineWaveform[count1]); 
+    setVoltage(1,TriangleWaveform[count2]);
+    count1++;
+    count2++;
+    if(count1 > SinCount){
+        count1 = 0;
+    }
+    if(count2 > TriangleCount){
+        count2 = 0;
+    }
     IFS0bits.T2IF = 0;
 }
 int main() {
@@ -73,7 +93,7 @@ int main() {
     TRISBbits.TRISB4 = 1;   //RB4 (PIN#11) for pushbutton
     
     // Timer2: updating value at 1000 times a second
-    PR2 = 6000;                   // period = (PR2+1) * N * (1/48000000)s = 0.001 s, 1 kHz
+    PR2 = 5999;                   // period = (PR2+1) * N * (1/48000000)s = 0.001 s, 1 kHz
     TMR2 = 0;                     // initial TMR2 count is 0
     T2CONbits.TCKPS = 0b011;      // Timer2 prescaler N=8 (1:8)
     T2CONbits.ON = 1;             // turn on Timer2
@@ -83,11 +103,11 @@ int main() {
     IEC0bits.T2IE = 1;            // step 6: enable Timer2 by setting IEC0<11>
     
     __builtin_enable_interrupts();
-    
+    makeSinWave();
+    makeTriangleWave();
     init_spi1();
     while(1){
-        setVoltage(0, 255); // set VoutA to 3.3
-        setVoltage(1, 127); // set VoutB to 1.5 
+        ;
     }
 }
 
@@ -135,6 +155,20 @@ void setVoltage(char channel, unsigned char voltage){
         SPI1_IO((voltage >> 4) | 0b11110000); // 4 configuration bits
         SPI1_IO(voltage << 4); // Data bits
         CS = 1;   
+    }
+}
+
+void makeSinWave(){
+    int i;
+    for(i = 0; i < SinCount; i++){
+        SineWaveform[i] = 255*sin(2*PI*10*i*0.001);
+    }
+}
+
+void makeTriangleWave(){
+    int i;
+    for(i = 0; i < TriangleCount; i++){
+        TriangleWaveform[i] = 255*i*0.001/0.2;
     }
 }
 
