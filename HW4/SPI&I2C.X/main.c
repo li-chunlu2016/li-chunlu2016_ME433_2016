@@ -48,7 +48,7 @@ char getExpander();
 
 
 void __ISR(_TIMER_2_VECTOR, IPL5SOFT) Controller(void) {
-    
+    LATAINV = 0x10;
     IFS0bits.T2IF = 0;
 }
 int main() {
@@ -88,17 +88,6 @@ int main() {
     while(1){
         setVoltage(0, 255); // set VoutA to 3.3
         setVoltage(1, 127); // set VoutB to 1.5 
-        
-        _CP0_SET_COUNT(0);
-        while(_CP0_GET_COUNT() < 12000) { 
-            ;
-        }
-        if (PORTBbits.RB4 == 0) {
-            LATAbits.LATA4 = 1; // push button will make LED not blink.
-        }
-        else {
-            LATAINV = 0x10; // LED turn on/off for 0.5 ms, LED blinking.
-        }
     }
 }
 
