@@ -63,12 +63,26 @@ int main() {
     DDPCONbits.JTAGEN = 0;
     
     // do your TRIS and LAT commands here
-
+    TRISAbits.TRISA4 = 0;   //RA4 (PIN#12) for Green LED
+    LATAbits.LATA4 = 1;
+    
+    TRISBbits.TRISB4 = 1;   //RB4 (PIN#11) for pushbutton
     __builtin_enable_interrupts();
     
     init_spi1();
     while(1){
         setVoltage(0, 255);
+        setVoltage(1, 127);
+        _CP0_SET_COUNT(0);
+        while(_CP0_GET_COUNT() < 12000) { 
+            ;
+        }
+        if (PORTBbits.RB4 == 0) {
+            LATAbits.LATA4 = 1; // push button will make LED not blink.
+        }
+        else {
+            LATAINV = 0x10; // LED turn on/off for 0.5 ms, LED blinking.
+        }
     }
 }
 
