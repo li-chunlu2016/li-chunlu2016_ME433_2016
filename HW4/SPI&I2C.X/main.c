@@ -62,7 +62,7 @@ int main() {
 
 void initSPI1(){
     // set up the chip select pin as an output
-    // the chip select pin is used by the sram to indicate
+    // the chip select pin is used by the MCP4902DAC to indicate
     // when a command is beginning (clear CS to low) and when it
     // is ending (set CS high)
     TRISBbits.TRISB7 = 0b0;
@@ -83,20 +83,36 @@ void initSPI1(){
     SPI1CONbits.ON = 1;       // turn on SPI 1
 }
 
+char SPI1_IO(char write){
+    SPI1BUF = write;
+    while(!SPI1STATbits.SPIRBF) { // wait to receive the byte
+     ;
+     }
+    return SPI1BUF; 
+}
+
+void setVoltage(char channel, char voltage){
+    if(channel == '0') { // 0 for VoutA
+        CS = 0; 
+        SPI1_IO = (0x7 << 12); // 4 configuration bits
+        SPI1_IO = (voltage << 4); // Data bits
+        SPI1_IO = 0x0; // ignore bit
+        CS = 1;   
+    }
+    if(channel == '1') { // 1 for VoutB
+        CS = 0; 
+        SPI1_IO = (0xF << 12); // 4 configuration bits
+        SPI1_IO = (voltage << 4); // Data bits
+        SPI1_IO = 0x0;// ignore bit
+        CS = 1;   
+    }
+}
 
 void initI2C2(){
     
 }
 
-char SPI1_IO(char write){
-    
-}
-
 void initExpander(){
-    
-}
-
-void setVoltage(char channel, char voltage){
     
 }
 
