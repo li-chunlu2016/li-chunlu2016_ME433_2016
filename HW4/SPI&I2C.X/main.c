@@ -1,6 +1,6 @@
 #include<xc.h>           // processor SFR definitions
 #include<sys/attribs.h>  // __ISR macro
-#include <math.h>
+#include<math.h>
 
 // DEVCFG0
 #pragma config DEBUG = OFF // no debugging
@@ -47,7 +47,7 @@ static volatile float TriangleWaveform[TriangleCount];   // triangle waveform
 
 char SPI1_IO(char write);
 void init_spi1();
-void setVoltage(char channel, unsigned char voltage);
+void setVoltage(char channel, float voltage);
 void initI2C2();
 void initExpander();
 void setExpander(char pin, char level);
@@ -106,8 +106,8 @@ int main() {
     init_spi1();
     
     while(1){
-        setVoltage(0,127);
-        setVoltage(1,255);
+        setVoltage(0,255);
+        setVoltage(1,127);
     }
 }
 
@@ -121,6 +121,7 @@ void init_spi1(){
     SS1Rbits.SS1R = 0b0100; // assign SS1 to RB7
     SDI1Rbits.SDI1R = 0b0000; // assign SDI1 to RA1 
     RPB8Rbits.RPB8R = 0b0011; // assign SDO1 to RB8
+    ANSELBbits.ANSB14 = 0; // turn off AN10
     
     // setup SPI1
     SPI1CON = 0;              // turn off the SPI1 module and reset it
@@ -142,18 +143,18 @@ char SPI1_IO(char write){
     return SPI1BUF; 
 }
 
-void setVoltage(char channel, unsigned char voltage){
+void setVoltage(char channel, float voltage){
+    int temp = voltage;
     if(channel == 0) { // 0 for VoutA
         CS = 0; 
-        SPI1_IO((voltage >> 4) | 0b01110000); // 4 configuration bits
-        SPI1_IO(voltage << 4); // Data bits 
-        
+        SPI1_IO((temp >> 4) | 0b01110000); // 4 configuration bits
+        SPI1_IO(temp << 4); // Data bits 
         CS = 1;   
     }
     if(channel == 1) { // 1 for VoutB
         CS = 0; 
-        SPI1_IO((voltage >> 4) | 0b11110000); // 4 configuration bits
-        SPI1_IO(voltage << 4); // Data bits
+        SPI1_IO((temp >> 4) | 0b11110000); // 4 configuration bits
+        SPI1_IO(temp << 4); // Data bits
         CS = 1;   
     }
 }
