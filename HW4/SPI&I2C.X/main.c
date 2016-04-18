@@ -38,11 +38,11 @@
 #pragma config FVBUSONIO = ON // USB BUSON controlled by USB module
 
 #define CS LATBbits.LATB7 // chip select pin
-#define SinCount 100
-#define TriangleCount 200
+#define SineCount 100
+#define TriangleCount 100
 #define PI 3.14159265
 
-static volatile float SineWaveform[SinCount];   // sine waveform
+static volatile float SineWaveform[SineCount];   // sine waveform
 static volatile float TriangleWaveform[TriangleCount];   // triangle waveform
 
 char SPI1_IO(char write);
@@ -56,19 +56,16 @@ void makeSinWave();
 void makeTriangleWave();
 
 void __ISR(_TIMER_2_VECTOR, IPL5SOFT) Controller(void) {
-    static int count1 = 0;
-    static int count2 = 0;
+    
     LATAINV = 0x10; // make sure timer2 works
-    setVoltage(0,SineWaveform[count1]); 
-    setVoltage(1,TriangleWaveform[count2]);
-    count1++;
-    count2++;
-    if(count1 > SinCount){
-        count1 = 0;
+    /*
+    static int count = 0;
+    setVoltage(0,SineWaveform[count]); 
+    count++;
+    if(count > SineCount){
+        count = 0;
     }
-    if(count2 > TriangleCount){
-        count2 = 0;
-    }
+    */
     IFS0bits.T2IF = 0;
 }
 int main() {
@@ -103,11 +100,14 @@ int main() {
     IEC0bits.T2IE = 1;            // step 6: enable Timer2 by setting IEC0<11>
     
     __builtin_enable_interrupts();
+    
     makeSinWave();
     makeTriangleWave();
     init_spi1();
+    
     while(1){
-        ;
+        setVoltage(0,127);
+        setVoltage(1,255);
     }
 }
 
@@ -160,15 +160,15 @@ void setVoltage(char channel, unsigned char voltage){
 
 void makeSinWave(){
     int i;
-    for(i = 0; i < SinCount; i++){
+    for(i = 0; i < SineCount; i++){
         SineWaveform[i] = 255*sin(2*PI*10*i*0.001);
     }
 }
 
 void makeTriangleWave(){
-    int i;
-    for(i = 0; i < TriangleCount; i++){
-        TriangleWaveform[i] = 255*i*0.001/0.2;
+    int j;
+    for(j = 0; j < TriangleCount; j++){
+        TriangleWaveform[j] = 255*(j*0.01); // 0.002/0.2
     }
 }
 
