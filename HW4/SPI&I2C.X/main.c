@@ -54,10 +54,7 @@ void setExpander(char pin, char level);
 char getExpander();
 void makeSinWave();
 void makeTriangleWave();
-
-void __ISR(_TIMER_2_VECTOR, IPL5SOFT) Controller(void) {
     
-    LATAINV = 0x10; // make sure timer2 works
     /*
     static int count = 0;
     setVoltage(0,SineWaveform[count]); 
@@ -66,8 +63,7 @@ void __ISR(_TIMER_2_VECTOR, IPL5SOFT) Controller(void) {
         count = 0;
     }
     */
-    IFS0bits.T2IF = 0;
-}
+
 int main() {
 
     __builtin_disable_interrupts();
@@ -89,6 +85,7 @@ int main() {
     LATAbits.LATA4 = 1;
     TRISBbits.TRISB4 = 1;   //RB4 (PIN#11) for pushbutton
     
+    /*
     // Timer2: updating value at 1000 times a second
     PR2 = 5999;                   // period = (PR2+1) * N * (1/48000000)s = 0.001 s, 1 kHz
     TMR2 = 0;                     // initial TMR2 count is 0
@@ -98,6 +95,7 @@ int main() {
     IPC2bits.T2IS = 0;            // step 4: interrupt priority
     IFS0bits.T2IF = 0;            // step 5: clear the int flag
     IEC0bits.T2IE = 1;            // step 6: enable Timer2 by setting IEC0<11>
+    */
     
     __builtin_enable_interrupts();
     
@@ -106,8 +104,14 @@ int main() {
     init_spi1();
     
     while(1){
+        _CP0_SET_COUNT(0);
+        LATAINV = 0x10; // make sure timer2 works
+        
         setVoltage(0,255);
-        setVoltage(1,127);
+        //setVoltage(1,127);
+        while(_CP0_GET_COUNT() < 24000) { 
+            ;
+        }
     }
 }
 
@@ -118,10 +122,10 @@ void init_spi1(){
     // is ending (set CS high)
     TRISBbits.TRISB7 = 0b0;
     CS = 1;
-    SS1Rbits.SS1R = 0b0100; // assign SS1 to RB7
+    SS1Rbits.SS1R = 0b0100;   // assign SS1 to RB7
     SDI1Rbits.SDI1R = 0b0000; // assign SDI1 to RA1 
     RPB8Rbits.RPB8R = 0b0011; // assign SDO1 to RB8
-    ANSELBbits.ANSB14 = 0; // turn off AN10
+    ANSELBbits.ANSB14 = 0;    // turn off AN10
     
     // setup SPI1
     SPI1CON = 0;              // turn off the SPI1 module and reset it
