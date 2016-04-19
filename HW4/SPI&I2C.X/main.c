@@ -49,7 +49,6 @@ static volatile float TriangleWaveform[TriangleCount];   // triangle waveform
 char SPI1_IO(char write);
 void initSPI1();
 void setVoltage(char channel, float voltage);
-void initI2C2();
 void initExpander();
 void setExpander(char pin, char level);
 char getExpander();
@@ -82,6 +81,7 @@ int main() {
     makeSinWave();
     makeTriangleWave();
     initSPI1();
+    i2c_master_setup();
     
     while(1){
         _CP0_SET_COUNT(0);
@@ -168,10 +168,6 @@ void makeTriangleWave(){
     for(j = 0; j < TriangleCount; j++){
         TriangleWaveform[j] = 255*(j*0.005); 
     }
-}
-
-void initI2C2(){
-    
 }
 
 void initExpander(){
