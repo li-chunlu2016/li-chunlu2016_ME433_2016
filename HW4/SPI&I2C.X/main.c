@@ -82,7 +82,8 @@ int main() {
     makeTriangleWave();
     initSPI1();
     i2c_master_setup();
-    
+    initExpander();
+            
     while(1){
         _CP0_SET_COUNT(0);
         LATAINV = 0x10; // make sure timer2 works
@@ -171,7 +172,11 @@ void makeTriangleWave(){
 }
 
 void initExpander(){
-    
+    i2c_master_start();
+    i2c_master_send((0x20 << 1)|0);    
+    i2c_master_send(0x00);
+    i2c_master_send(0xF0);
+    i2c_master_stop();
 }
 
 void setExpander(char pin, char level){
