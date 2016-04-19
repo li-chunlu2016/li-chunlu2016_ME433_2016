@@ -94,10 +94,10 @@ int main() {
         setVoltage(1,TriangleWaveform[count2]);
         count1++;
         count2++;
-        if(count1 > SineCount){
+        if(count1 >= SineCount){
             count1 = 0;
         }
-        if(count2 > TriangleCount){
+        if(count2 >= TriangleCount){
             count2 = 0;
         }
         while(_CP0_GET_COUNT() < 24000) { 
@@ -156,7 +156,7 @@ void setVoltage(char channel, float voltage){
 
 void makeSinWave(){
     int i;
-    for(i = 0; i <= SineCount; i++){
+    for(i = 0; i < SineCount; i++){
         SineWaveform[i] = 127+128*sin(2*PI*10*i*0.001);
         }
 }
@@ -165,7 +165,7 @@ void makeSinWave(){
 void makeTriangleWave(){
     int j;
     for(j = 0; j < TriangleCount; j++){
-        TriangleWaveform[j] = 255*(j*0.005); // 0.002/0.2 
+        TriangleWaveform[j] = 255*(j*0.005); 
     }
 }
 
