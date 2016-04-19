@@ -39,7 +39,7 @@
 
 #define CS LATBbits.LATB7 // chip select pin
 #define SineCount 100
-#define TriangleCount 100
+#define TriangleCount 200
 #define PI 3.14159265
 
 static volatile float SineWaveform[SineCount];   // sine waveform
@@ -54,15 +54,6 @@ void setExpander(char pin, char level);
 char getExpander();
 void makeSinWave();
 void makeTriangleWave();
-    
-    /*
-    static int count = 0;
-    setVoltage(0,SineWaveform[count]); 
-    count++;
-    if(count > SineCount){
-        count = 0;
-    }
-    */
 
 int main() {
 
@@ -85,18 +76,6 @@ int main() {
     LATAbits.LATA4 = 1;
     TRISBbits.TRISB4 = 1;   //RB4 (PIN#11) for pushbutton
     
-    /*
-    // Timer2: updating value at 1000 times a second
-    PR2 = 5999;                   // period = (PR2+1) * N * (1/48000000)s = 0.001 s, 1 kHz
-    TMR2 = 0;                     // initial TMR2 count is 0
-    T2CONbits.TCKPS = 0b011;      // Timer2 prescaler N=8 (1:8)
-    T2CONbits.ON = 1;             // turn on Timer2
-    IPC2bits.T2IP = 5;            // step 4: interrupt priority
-    IPC2bits.T2IS = 0;            // step 4: interrupt priority
-    IFS0bits.T2IF = 0;            // step 5: clear the int flag
-    IEC0bits.T2IE = 1;            // step 6: enable Timer2 by setting IEC0<11>
-    */
-    
     __builtin_enable_interrupts();
     
     makeSinWave();
@@ -107,8 +86,20 @@ int main() {
         _CP0_SET_COUNT(0);
         LATAINV = 0x10; // make sure timer2 works
         
-        setVoltage(0,255);
+        //setVoltage(0,255);
         //setVoltage(1,127);
+        static int count1 = 0;
+        static int count2 = 0;
+        setVoltage(0,SineWaveform[count1]); 
+        setVoltage(1,TriangleWaveform[count2]);
+        count1++;
+        count2++;
+        if(count1 > SineCount){
+            count1 = 0;
+        }
+        if(count2 > TriangleCount){
+            count2 = 0;
+        }
         while(_CP0_GET_COUNT() < 24000) { 
             ;
         }
@@ -165,15 +156,16 @@ void setVoltage(char channel, float voltage){
 
 void makeSinWave(){
     int i;
-    for(i = 0; i < SineCount; i++){
-        SineWaveform[i] = 255*sin(2*PI*10*i*0.001);
-    }
+    for(i = 0; i <= SineCount; i++){
+        SineWaveform[i] = 127+128*sin(2*PI*10*i*0.001);
+        }
 }
+
 
 void makeTriangleWave(){
     int j;
     for(j = 0; j < TriangleCount; j++){
-        TriangleWaveform[j] = 255*(j*0.01); // 0.002/0.2
+        TriangleWaveform[j] = 255*(j*0.005); // 0.002/0.2 
     }
 }
 
