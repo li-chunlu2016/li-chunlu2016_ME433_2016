@@ -1,6 +1,7 @@
 #include<xc.h>           // processor SFR definitions
 #include<sys/attribs.h>  // __ISR macro
 #include<math.h>
+#include "i2c_master_noint.h"
 
 // DEVCFG0
 #pragma config DEBUG = OFF // no debugging
@@ -46,7 +47,7 @@ static volatile float SineWaveform[SineCount];   // sine waveform
 static volatile float TriangleWaveform[TriangleCount];   // triangle waveform
 
 char SPI1_IO(char write);
-void init_spi1();
+void initSPI1();
 void setVoltage(char channel, float voltage);
 void initI2C2();
 void initExpander();
@@ -80,7 +81,7 @@ int main() {
     
     makeSinWave();
     makeTriangleWave();
-    init_spi1();
+    initSPI1();
     
     while(1){
         _CP0_SET_COUNT(0);
@@ -106,7 +107,7 @@ int main() {
     }
 }
 
-void init_spi1(){
+void initSPI1(){
     // set up the chip select pin as an output
     // the chip select pin is used by the MCP4902DAC to indicate
     // when a command is beginning (clear CS to low) and when it
