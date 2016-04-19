@@ -50,7 +50,7 @@ char SPI1_IO(char write);
 void initSPI1();
 void setVoltage(char channel, float voltage);
 void initExpander();
-void setExpander(char pin, char level);
+void setExpander(int pin, int level);
 char getExpander();
 void makeSinWave();
 void makeTriangleWave();
@@ -87,13 +87,7 @@ int main() {
     while(1){
         _CP0_SET_COUNT(0);
         LATAINV = 0x10; // make sure timer2 works
-        
-        i2c_master_start();
-        i2c_master_send(0x40);    
-        i2c_master_send(0x0A);
-        i2c_master_send(0x1);
-        i2c_master_stop();
-        
+        setExpander(0, 1);
         //setVoltage(0,255);
         //setVoltage(1,127);
         static int count1 = 0;
@@ -185,8 +179,18 @@ void initExpander(){
     i2c_master_stop();
 }
 
-void setExpander(char pin, char level){
+void setExpander(int pin, int level){
     
+        i2c_master_start();
+        i2c_master_send(0x40);    
+        i2c_master_send(0x0A);
+        if(level = 1){
+            i2c_master_send(1 << pin);
+        }
+        if(level = 0){
+            i2c_master_send(0 << pin);
+        }
+        i2c_master_stop();   
 }
 
 char getExpander(){
