@@ -88,6 +88,12 @@ int main() {
         _CP0_SET_COUNT(0);
         LATAINV = 0x10; // make sure timer2 works
         
+        i2c_master_start();
+        i2c_master_send(0x40);    
+        i2c_master_send(0x0A);
+        i2c_master_send(0x1);
+        i2c_master_stop();
+        
         //setVoltage(0,255);
         //setVoltage(1,127);
         static int count1 = 0;
@@ -173,7 +179,7 @@ void makeTriangleWave(){
 
 void initExpander(){
     i2c_master_start();
-    i2c_master_send((0x20 << 1)|0);    
+    i2c_master_send(0x40);    
     i2c_master_send(0x00);
     i2c_master_send(0xF0);
     i2c_master_stop();
