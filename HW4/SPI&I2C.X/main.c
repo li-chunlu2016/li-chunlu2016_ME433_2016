@@ -46,6 +46,7 @@
 static volatile float SineWaveform[SineCount];   // sine waveform
 static volatile float TriangleWaveform[TriangleCount];   // triangle waveform
 unsigned char read  = 0x00;
+unsigned char checkGP7 = 0x00;
 char SPI1_IO(char write);
 void initSPI1();
 void setVoltage(char channel, float voltage);
@@ -87,9 +88,15 @@ int main() {
     while(1){
         _CP0_SET_COUNT(0);
         LATAINV = 0x10; // make sure timer2 works
-        setExpander(0, 1);
-        //setVoltage(0,255);
-        //setVoltage(1,127);
+        
+        checkGP7 = (getExpander() >> 7);
+        if(checkGP7 == 1){
+            setExpander(0, 1);
+        }
+        else{
+            setExpander(0, 0);
+        }
+        
         static int count1 = 0;
         static int count2 = 0;
         setVoltage(0,SineWaveform[count1]); 
