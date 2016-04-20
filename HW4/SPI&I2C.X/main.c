@@ -45,7 +45,7 @@
 
 static volatile float SineWaveform[SineCount];   // sine waveform
 static volatile float TriangleWaveform[TriangleCount];   // triangle waveform
-
+unsigned char read  = 0x00;
 char SPI1_IO(char write);
 void initSPI1();
 void setVoltage(char channel, float voltage);
@@ -82,8 +82,8 @@ int main() {
     makeTriangleWave();
     initSPI1();
     i2c_master_setup();
-    initExpander();
-            
+    initExpander();       
+       
     while(1){
         _CP0_SET_COUNT(0);
         LATAINV = 0x10; // make sure timer2 works
@@ -180,19 +180,29 @@ void initExpander(){
 }
 
 void setExpander(int pin, int level){
-    
+        
+        getExpander();
         i2c_master_start();
         i2c_master_send(0x40);    
         i2c_master_send(0x0A);
         if(level = 1){
-            i2c_master_send(1 << pin);
+            i2c_master_send((1 << pin)|read);
         }
         if(level = 0){
-            i2c_master_send(0 << pin);
+            i2c_master_send((0 << pin)|read);
         }
         i2c_master_stop();   
 }
 
 char getExpander(){
+    i2c_master_start();
+    i2c_master_send(0x40);    
+    i2c_master_send(0x09);
+    i2c_master_restart();
+    i2c_master_send(0x41);
+    read = i2c_master_recv();
+    i2c_master_ack(1);
+    i2c_master_stop();
     
+    return read;
 }
