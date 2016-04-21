@@ -92,9 +92,9 @@ int main() {
         
         checkGP7 = (getExpander() >> 7);
         if(checkGP7 == 0){
-            setExpander(0, 0);
+            setExpander(0, 1);
         }
-        else{setExpander(0,1);}
+        else{setExpander(0,0);}
         
         static int count1 = 0;
         static int count2 = 0;
