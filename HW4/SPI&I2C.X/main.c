@@ -55,6 +55,7 @@ void setExpander(int pin, int level);
 char getExpander();
 void makeSinWave();
 void makeTriangleWave();
+unsigned char setLowBitOperation(int pin);
 
 int main() {
 
@@ -201,7 +202,9 @@ void setExpander(int pin, int level){
             i2c_master_send((1 << pin)|read);
         }
         if(level == 0){
-            i2c_master_send((0 << pin)|read);
+            unsigned char temp;
+            temp = setLowBitOperation(pin);
+            i2c_master_send(read & temp);
         }
         i2c_master_stop();   
 }
@@ -217,4 +220,13 @@ char getExpander(){
     i2c_master_stop();
     
     return read;
+}
+
+unsigned char setLowBitOperation(int pin){
+    unsigned char b1=0xff;
+    unsigned char b2, b3, b4;
+    b2 = b1 << (pin+1);
+    b3 = b1 >> (8-pin);
+    b4 = b2 ^ b3;
+    return b4;
 }
