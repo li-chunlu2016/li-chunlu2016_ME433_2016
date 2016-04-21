@@ -90,19 +90,12 @@ int main() {
         _CP0_SET_COUNT(0);
         LATAINV = 0x10; // make sure timer2 works
         
-        /*checkGP7 = (getExpander() >> 7);
-        if(checkGP7 == 1){
-            setExpander(0, 1);
-        }
-        else{
+        checkGP7 = (getExpander() >> 7);
+        if(checkGP7 == 0){
             setExpander(0, 0);
         }
-        */
-        setExpander(0, 1);
-        setExpander(1, 1);
-        setExpander(2, 1);
-        setExpander(3, 1);
-        setExpander(2, 0);
+        else{setExpander(0,1);}
+        
         static int count1 = 0;
         static int count2 = 0;
         setVoltage(0,SineWaveform[count1]); 
@@ -188,7 +181,7 @@ void initExpander(){
     i2c_master_start();
     i2c_master_send(0x40);    
     i2c_master_send(0x00);
-    i2c_master_send(0xF0);
+    i2c_master_send(0xf0);
     i2c_master_stop();
 }
 
