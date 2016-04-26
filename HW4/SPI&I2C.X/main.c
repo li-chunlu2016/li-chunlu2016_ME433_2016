@@ -72,33 +72,33 @@ int main() {
 
     // disable JTAG to get pins back
     DDPCONbits.JTAGEN = 0;
-    
+
     // do your TRIS and LAT commands here
     TRISAbits.TRISA4 = 0;   //RA4 (PIN#12) for Green LED
     LATAbits.LATA4 = 1;
     TRISBbits.TRISB4 = 1;   //RB4 (PIN#11) for pushbutton
-    
+
     __builtin_enable_interrupts();
-    
+
     makeSinWave();
     makeTriangleWave();
     initSPI1();
     i2c_master_setup();
-    initExpander();       
-       
+    initExpander();
+
     while(1){
         _CP0_SET_COUNT(0);
         LATAINV = 0x10; // make sure timer2 works
-        
+
         checkGP7 = (getExpander() >> 7);
         if(checkGP7 == 0){
             setExpander(0, 1);
         }
         else{setExpander(0,0);}
-        
+
         static int count1 = 0;
         static int count2 = 0;
-        setVoltage(0,SineWaveform[count1]); 
+        setVoltage(0,SineWaveform[count1]);
         setVoltage(1,TriangleWaveform[count2]);
         count1++;
         count2++;
@@ -108,7 +108,7 @@ int main() {
         if(count2 >= TriangleCount){
             count2 = 0;
         }
-        while(_CP0_GET_COUNT() < 24000) { 
+        while(_CP0_GET_COUNT() < 24000) {
             ;
         }
     }
@@ -122,10 +122,10 @@ void initSPI1(){
     TRISBbits.TRISB7 = 0b0;
     CS = 1;
     SS1Rbits.SS1R = 0b0100;   // assign SS1 to RB7
-    SDI1Rbits.SDI1R = 0b0000; // assign SDI1 to RA1 
+    SDI1Rbits.SDI1R = 0b0000; // assign SDI1 to RA1
     RPB8Rbits.RPB8R = 0b0011; // assign SDO1 to RB8
     ANSELBbits.ANSB14 = 0;    // turn off AN10
-    
+
     // setup SPI1
     SPI1CON = 0;              // turn off the SPI1 module and reset it
     SPI1BUF;                  // clear the rx buffer by reading from it
@@ -143,22 +143,22 @@ char SPI1_IO(char write){
     while(!SPI1STATbits.SPIRBF) { // wait to receive the byte
      ;
      }
-    return SPI1BUF; 
+    return SPI1BUF;
 }
 
 void setVoltage(char channel, float voltage){
     int temp = voltage;
     if(channel == 0) { // 0 for VoutA
-        CS = 0; 
+        CS = 0;
         SPI1_IO((temp >> 4) | 0b01110000); // 4 configuration bits
-        SPI1_IO(temp << 4); // Data bits 
-        CS = 1;   
+        SPI1_IO(temp << 4); // Data bits
+        CS = 1;
     }
     if(channel == 1) { // 1 for VoutB
-        CS = 0; 
+        CS = 0;
         SPI1_IO((temp >> 4) | 0b11110000); // 4 configuration bits
         SPI1_IO(temp << 4); // Data bits
-        CS = 1;   
+        CS = 1;
     }
 }
 
@@ -173,23 +173,23 @@ void makeSinWave(){
 void makeTriangleWave(){
     int j;
     for(j = 0; j < TriangleCount; j++){
-        TriangleWaveform[j] = 255*(j*0.005); 
+        TriangleWaveform[j] = 255*(j*0.005);
     }
 }
 
 void initExpander(){
     i2c_master_start();
-    i2c_master_send(0x40);    
+    i2c_master_send(0x40);
     i2c_master_send(0x00);
     i2c_master_send(0xf0);
     i2c_master_stop();
 }
 
 void setExpander(int pin, int level){
-        
+
         getExpander();
         i2c_master_start();
-        i2c_master_send(0x40);    
+        i2c_master_send(0x40);
         i2c_master_send(0x0A);
         if(level == 1){
             i2c_master_send((1 << pin)|read);
@@ -199,19 +199,19 @@ void setExpander(int pin, int level){
             temp = setLowBitOperation(pin);
             i2c_master_send(read & temp);
         }
-        i2c_master_stop();   
+        i2c_master_stop();
 }
 
 char getExpander(){
     i2c_master_start();
-    i2c_master_send(0x40);    
+    i2c_master_send(0x40);
     i2c_master_send(0x09);
     i2c_master_restart();
     i2c_master_send(0x41);
     read = i2c_master_recv();
     i2c_master_ack(1);
     i2c_master_stop();
-    
+
     return read;
 }
 
