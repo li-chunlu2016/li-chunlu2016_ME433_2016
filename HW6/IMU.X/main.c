@@ -132,8 +132,8 @@ int main() {
         ay = ((stuff[11]<<8) | stuff[10]);
         az = ((stuff[13]<<8) | stuff[12]);
         
-        setAX = 1500*(ax/32767.0)+1500;
-        setAY = 1500*(ay/32767.0)+1500;
+        setAX = 1500*(ax/16384.0)+1500;
+        setAY = 1500*(ay/16384.0)+1500;
         
         while(_CP0_GET_COUNT() < 480000) { // 50 Hz
             ;
