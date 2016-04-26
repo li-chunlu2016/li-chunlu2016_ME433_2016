@@ -149,8 +149,8 @@ void I2C_read_multiple(char address, char regadd, unsigned char * data, char len
 
 void __ISR(_TIMER_3_VECTOR, IPL5SOFT) PWMController(void) {  // INT step 1: the ISR	
 	OC1RS = (int)(DataAll[4] * 6000 / 65535 + 3000.04578);
-    //OC2R = (int)(DataAll[5] * 6000 / 65535 + 3000.04578);
-    OC2RS = 0;
+    OC2RS = (int)(DataAll[5] * 6000 / 65535 + 3000.04578);
+    //OC2RS = 0;
 	//
 	//LATAbits.LATA4 = 1;
 	IFS0bits.T3IF = 0;            // clear interrupt flag IFS0<3>
@@ -201,7 +201,7 @@ int main() {
         for (i = 0; i < 7; i++) {
             //DataAll[i] = (DataAlltemp[i+1] << 8) | DataAlltemp[i];
 			DataAll[i] = ((DataAlltemp[i+1] >> 7) << 15)| DataAlltemp[i];
-            i = i + 2;
+            i++;
         }    
     }
 }
