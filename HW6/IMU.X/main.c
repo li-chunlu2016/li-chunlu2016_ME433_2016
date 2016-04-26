@@ -39,24 +39,15 @@
 #pragma config FVBUSONIO = ON // USB BUSON controlled by USB module
 
 #define CS LATBbits.LATB7 // chip select pin
-#define SineCount 100
-#define TriangleCount 200
 #define PI 3.14159265
 
-static volatile float SineWaveform[SineCount];   // sine waveform
-static volatile float TriangleWaveform[TriangleCount];   // triangle waveform
 unsigned char read  = 0x00;
+unsigned char whoAmI  = 0x00;
 unsigned char checkGP7 = 0x00;
-char SPI1_IO(char write);
-void initSPI1();
-void setVoltage(char channel, float voltage);
-void initExpander();
-void setExpander(int pin, int level);
-char getExpander();
-void makeSinWave();
-void makeTriangleWave();
-unsigned char setLowBitOperation(int pin);
+
+//IMU
 void initIMU();
+char getExpander();
 
 void __ISR(_TIMER_2_VECTOR, IPL5SOFT) PWMcontroller(void) { // step 1: the ISR
   LATAINV = 0x10; // make sure timer2 works
@@ -129,134 +120,51 @@ int main() {
     }
 }
 
-void initSPI1(){
-    // set up the chip select pin as an output
-    // the chip select pin is used by the MCP4902DAC to indicate
-    // when a command is beginning (clear CS to low) and when it
-    // is ending (set CS high)
-    TRISBbits.TRISB7 = 0b0;
-    CS = 1;
-    SS1Rbits.SS1R = 0b0100;   // assign SS1 to RB7
-    RPB8Rbits.RPB8R = 0b0011; // assign SDO1 to RB8
-    ANSELBbits.ANSB14 = 0;    // turn off AN10
-    
-    // setup SPI1
-    SPI1CON = 0;              // turn off the SPI1 module and reset it
-    SPI1BUF;                  // clear the rx buffer by reading from it
-    SPI1BRG = 0x1;            // baud rate to 12 MHz [SPI4BRG = (48000000/(2*desired))-1]
-    SPI1STATbits.SPIROV = 0;  // clear the overflow bit
-    SPI1CONbits.MODE32 = 0;   // use 8 bit mode
-    SPI1CONbits.MODE16 = 0;
-    SPI1CONbits.CKE = 1;      // data changes when clock goes from hi to lo (since CKP is 0)
-    SPI1CONbits.MSTEN = 1;    // master operation
-    SPI1CONbits.ON = 1;       // turn on SPI 1
-}
-
-char SPI1_IO(char write){
-    SPI1BUF = write;
-    while(!SPI1STATbits.SPIRBF) { // wait to receive the byte
-     ;
-     }
-    return SPI1BUF; 
-}
-
-void setVoltage(char channel, float voltage){
-    int temp = voltage;
-    if(channel == 0) { // 0 for VoutA
-        CS = 0; 
-        SPI1_IO((temp >> 4) | 0b01110000); // 4 configuration bits
-        SPI1_IO(temp << 4); // Data bits 
-        CS = 1;   
-    }
-    if(channel == 1) { // 1 for VoutB
-        CS = 0; 
-        SPI1_IO((temp >> 4) | 0b11110000); // 4 configuration bits
-        SPI1_IO(temp << 4); // Data bits
-        CS = 1;   
-    }
-}
-
-void makeSinWave(){
-    int i;
-    for(i = 0; i < SineCount; i++){
-        SineWaveform[i] = 127+128*sin(2*PI*10*i*0.001);
-        }
-}
-
-
-void makeTriangleWave(){
-    int j;
-    for(j = 0; j < TriangleCount; j++){
-        TriangleWaveform[j] = 255*(j*0.005); 
-    }
-}
-
-void initExpander(){
-    i2c_master_start();
-    i2c_master_send(0x40);    
-    i2c_master_send(0x00);
-    i2c_master_send(0xf0);
-    i2c_master_stop();
-}
-
-void setExpander(int pin, int level){
-        
-        getExpander();
-        i2c_master_start();
-        i2c_master_send(0x40);    
-        i2c_master_send(0x0A);
-        if(level == 1){
-            i2c_master_send((1 << pin)|read);
-        }
-        if(level == 0){
-            unsigned char temp;
-            temp = setLowBitOperation(pin);
-            i2c_master_send(read & temp);
-        }
-        i2c_master_stop();   
-}
-
-char getExpander(){
+unsigned char getWhoAmI(){
     i2c_master_start();
     i2c_master_send(0x40);    
     i2c_master_send(0x09);
     i2c_master_restart();
     i2c_master_send(0x41);
-    read = i2c_master_recv();
+    whoAmI = i2c_master_recv();
     i2c_master_ack(1);
     i2c_master_stop();
     
-    return read;
-}
-
-unsigned char setLowBitOperation(int pin){
-    unsigned char b1=0xff;
-    unsigned char b2, b3, b4;
-    b2 = b1 << (pin+1);
-    b3 = b1 >> (8-pin);
-    b4 = b2 ^ b3;
-    return b4;
+    return whoAmI;
 }
 
 void initIMU(){  // no need to connect SD0
     // init accelerometer
     i2c_master_start();
-    i2c_master_send(0xD7);    
+    i2c_master_send(0xD6);    
     i2c_master_send(0x10);
     i2c_master_send(0x80);
     i2c_master_stop();
     
     // init gyroscope
     i2c_master_start();
-    i2c_master_send(0xD7);    
+    i2c_master_send(0xD6);    
     i2c_master_send(0x11);
     i2c_master_send(0x80);
     i2c_master_stop();
     
     // init CTRL3_C IF_CON bit
     i2c_master_start();
-    i2c_master_send(0xD7);    
+    i2c_master_send(0xD6);    
     i2c_master_send(0x12);
     i2c_master_send(0b00000100);
     i2c_master_stop();
+}
+
+char getExpander(){
+    i2c_master_start();
+    i2c_master_send(0xD6);    
+    i2c_master_send(0x0F);
+    i2c_master_restart();
+    i2c_master_send(0xD7);
+    read = i2c_master_recv();
+    i2c_master_ack(1);
+    i2c_master_stop();
+    
+    return read;
 }
