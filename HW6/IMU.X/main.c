@@ -48,9 +48,9 @@ unsigned char checkGP7 = 0x00;
 //IMU
 void initIMU();
 char getExpander();
+unsigned char getWhoAmI();
 
 void __ISR(_TIMER_2_VECTOR, IPL5SOFT) PWMcontroller(void) { // step 1: the ISR
-  LATAINV = 0x10; // make sure timer2 works
 
   OC1RS = 2250;
   OC2RS = 750;
@@ -102,19 +102,20 @@ int main() {
     
     __builtin_enable_interrupts();
     
-    makeSinWave();
-    makeTriangleWave();
-    initSPI1();
     i2c_master_setup(); 
     initIMU();
     
     RPB15Rbits.RPB15R = 0b0101; // assign OC1 to RB15
     RPA1Rbits.RPA1R = 0b0101; // assign OC2 to RA1 
     
+    if(getWhoAmI() == 0x69){
+        LATAbits.LATA4 = 1;
+    }
+    
     while(1){
         _CP0_SET_COUNT(0);
         
-        while(_CP0_GET_COUNT() < 24000) { 
+        while(_CP0_GET_COUNT() < 480000) { 
             ;
         }
     }
@@ -122,10 +123,10 @@ int main() {
 
 unsigned char getWhoAmI(){
     i2c_master_start();
-    i2c_master_send(0x40);    
-    i2c_master_send(0x09);
+    i2c_master_send(0xD6);    
+    i2c_master_send(0x0F);
     i2c_master_restart();
-    i2c_master_send(0x41);
+    i2c_master_send(0xD7);
     whoAmI = i2c_master_recv();
     i2c_master_ack(1);
     i2c_master_stop();
@@ -154,17 +155,4 @@ void initIMU(){  // no need to connect SD0
     i2c_master_send(0x12);
     i2c_master_send(0b00000100);
     i2c_master_stop();
-}
-
-char getExpander(){
-    i2c_master_start();
-    i2c_master_send(0xD6);    
-    i2c_master_send(0x0F);
-    i2c_master_restart();
-    i2c_master_send(0xD7);
-    read = i2c_master_recv();
-    i2c_master_ack(1);
-    i2c_master_stop();
-    
-    return read;
 }
