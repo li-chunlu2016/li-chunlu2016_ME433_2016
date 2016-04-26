@@ -43,8 +43,6 @@
 #define maxLength 14                // slave address 01101011
 
 unsigned char whoAmI  = 0x00;       // check who am I register 
-int setAX = 0;
-int setAY = 0;
 char stuff[maxLength];              // save 14 8 bit data
 short gx = 0x0000;                  // gyroscope x
 short gy = 0x0000;                  // gyroscope x
@@ -61,8 +59,8 @@ void I2C_read_multiple(char add, char reg, char * data, char length);
 
 void __ISR(_TIMER_2_VECTOR, IPL5SOFT) PWMcontroller(void) { 
 
-  OC1RS = setAX;
-  OC2RS = setAY;
+  OC1RS = 1500*(ax/16384.0)+1500;
+  OC2RS = 1500*(ay/16384.0)+1500;
 
   IFS0bits.T2IF = 0;
 }
@@ -133,9 +131,6 @@ int main() {
         ax = ((stuff[9]<<8) | stuff[8]);
         ay = ((stuff[11]<<8) | stuff[10]);
         az = ((stuff[13]<<8) | stuff[12]);
-        
-        setAX = 1500*(10*ax/32768.0)+1500;
-        setAY = 1500*(10*ay/32768.0)+1500;
         
         while(_CP0_GET_COUNT() < 480000) { // 50 Hz
             ;
