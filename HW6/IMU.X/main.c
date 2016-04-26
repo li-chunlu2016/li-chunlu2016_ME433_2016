@@ -58,6 +58,14 @@ void makeTriangleWave();
 unsigned char setLowBitOperation(int pin);
 void initIMU();
 
+void __ISR(_TIMER_2_VECTOR, IPL5SOFT) PWMcontroller(void) { // step 1: the ISR
+
+
+  OC1RS = 100;
+
+  IFS0bits.T2IF = 0;
+}
+
 int main() {
 
     __builtin_disable_interrupts();
@@ -79,13 +87,34 @@ int main() {
     LATAbits.LATA4 = 1;
     TRISBbits.TRISB4 = 1;   //RB4 (PIN#11) for pushbutton
     
+    // for timer2
+    PR2 = 2999;                   // period = (PR2+1) * N * 20.8 ns = 0.001 s, 1 kHz
+    TMR2 = 0;                     // initial TMR2 count is 0
+    T2CONbits.TCKPS = 0b100;      // Timer2 prescaler N=16 (1:16)
+    T2CONbits.ON = 1;             // turn on Timer2
+
+    OC1CONbits.OCM = 0b110;       // PWM mode without fault pin; other OC1CON bits are defaults
+    OC1CONbits.ON = 1;            // turn on OC1
+    OC1CONbits.OC32 = 0;
+    OC1CONbits.OCTSEL = 0;        // select Timer2
+    
+    OC2CONbits.OCM = 0b110;       // PWM mode without fault pin; other OC1CON bits are defaults
+    OC2CONbits.ON = 1;            // turn on OC1
+    OC2CONbits.OC32 = 0;
+    OC2CONbits.OCTSEL = 0;        // select Timer2
+
+    IPC2bits.T2IP = 5;            // step 4: interrupt priority
+    IPC2bits.T2IS = 0;            // step 4: interrupt priority
+    IFS0bits.T2IF = 0;            // step 5: clear the int flag
+    IEC0bits.T2IE = 1;            // step 6: enable Timer2 by setting IEC0<11>
+    
     __builtin_enable_interrupts();
     
     makeSinWave();
     makeTriangleWave();
     initSPI1();
-    i2c_master_setup();
-    initExpander();       
+    i2c_master_setup(); 
+    initIMU();
        
     while(1){
         _CP0_SET_COUNT(0);
@@ -207,10 +236,25 @@ unsigned char setLowBitOperation(int pin){
     return b4;
 }
 
-void initIMU(){
+void initIMU(){  // no need to connect SD0
+    // init accelerometer
     i2c_master_start();
-    i2c_master_send(0x40);    
-    i2c_master_send(0x00);
-    i2c_master_send(0xf0);
+    i2c_master_send(0xD7);    
+    i2c_master_send(0x10);
+    i2c_master_send(0x80);
+    i2c_master_stop();
+    
+    // init gyroscope
+    i2c_master_start();
+    i2c_master_send(0xD7);    
+    i2c_master_send(0x11);
+    i2c_master_send(0x80);
+    i2c_master_stop();
+    
+    // init CTRL3_C IF_CON bit
+    i2c_master_start();
+    i2c_master_send(0xD7);    
+    i2c_master_send(0x12);
+    i2c_master_send(0b00000100);
     i2c_master_stop();
 }
