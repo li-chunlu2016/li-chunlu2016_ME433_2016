@@ -59,9 +59,10 @@ unsigned char setLowBitOperation(int pin);
 void initIMU();
 
 void __ISR(_TIMER_2_VECTOR, IPL5SOFT) PWMcontroller(void) { // step 1: the ISR
+  LATAINV = 0x10; // make sure timer2 works
 
-
-  OC1RS = 100;
+  OC1RS = 2250;
+  OC2RS = 750;
 
   IFS0bits.T2IF = 0;
 }
@@ -115,10 +116,12 @@ int main() {
     initSPI1();
     i2c_master_setup(); 
     initIMU();
-       
+    
+    RPB15Rbits.RPB15R = 0b0101; // assign OC1 to RB15
+    RPA1Rbits.RPA1R = 0b0101; // assign OC2 to RA1 
+    
     while(1){
         _CP0_SET_COUNT(0);
-        LATAINV = 0x10; // make sure timer2 works
         
         while(_CP0_GET_COUNT() < 24000) { 
             ;
@@ -134,7 +137,6 @@ void initSPI1(){
     TRISBbits.TRISB7 = 0b0;
     CS = 1;
     SS1Rbits.SS1R = 0b0100;   // assign SS1 to RB7
-    SDI1Rbits.SDI1R = 0b0000; // assign SDI1 to RA1 
     RPB8Rbits.RPB8R = 0b0011; // assign SDO1 to RB8
     ANSELBbits.ANSB14 = 0;    // turn off AN10
     
