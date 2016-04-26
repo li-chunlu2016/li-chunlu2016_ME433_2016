@@ -95,11 +95,13 @@ int main() {
 
     OC1CONbits.OCM = 0b110;       // PWM mode without fault pin; other OC1CON bits are defaults
     OC1CONbits.ON = 1;            // turn on OC1
+    OC1R = 1500;
     OC1CONbits.OC32 = 0;
     OC1CONbits.OCTSEL = 0;        // select Timer2
     
     OC2CONbits.OCM = 0b110;       // PWM mode without fault pin; other OC1CON bits are defaults
     OC2CONbits.ON = 1;            // turn on OC2
+    OC2R = 1500;
     OC2CONbits.OC32 = 0;
     OC2CONbits.OCTSEL = 0;        // select Timer2
 
@@ -132,8 +134,8 @@ int main() {
         ay = ((stuff[11]<<8) | stuff[10]);
         az = ((stuff[13]<<8) | stuff[12]);
         
-        setAX = 1500*(ax/16384.0)+1500;
-        setAY = 1500*(ay/16384.0)+1500;
+        setAX = 1500*(10*ax/32768.0)+1500;
+        setAY = 1500*(10*ay/32768.0)+1500;
         
         while(_CP0_GET_COUNT() < 480000) { // 50 Hz
             ;
