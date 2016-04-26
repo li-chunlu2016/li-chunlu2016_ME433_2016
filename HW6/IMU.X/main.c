@@ -25,43 +25,44 @@
 #pragma config FWDTWINSZ = WINSZ_25 // wdt window at 25%
 
 // DEVCFG2 - get the CPU clock to 48MHz
-#pragma config FPLLIDIV = DIV_2      // divide input clock to be in range 4-5MHz
-#pragma config FPLLMUL = MUL_24      // multiply clock after FPLLIDIV
-#pragma config FPLLODIV = DIV_2      // divide clock after FPLLMUL to get 48MHz
-#pragma config UPLLIDIV = DIV_2      // divider for the 8MHz input clock, then multiply by 12 to get 48MHz for USB
-#pragma config UPLLEN = ON           // USB clock on
+#pragma config FPLLIDIV = DIV_2     // divide input clock to be in range 4-5MHz
+#pragma config FPLLMUL = MUL_24     // multiply clock after FPLLIDIV
+#pragma config FPLLODIV = DIV_2     // divide clock after FPLLMUL to get 48MHz
+#pragma config UPLLIDIV = DIV_2     // divider for the 8MHz input clock, then multiply by 12 to get 48MHz for USB
+#pragma config UPLLEN = ON          // USB clock on
 
 // DEVCFG3
-#pragma config USERID = 0x1234   // some 16bit userid, doesn't matter what
-#pragma config PMDL1WAY = OFF    // allow multiple reconfigurations
-#pragma config IOL1WAY = OFF     // allow multiple reconfigurations
-#pragma config FUSBIDIO = ON     // USB pins controlled by USB module
-#pragma config FVBUSONIO = ON    // USB BUSON controlled by USB module
+#pragma config USERID = 0x1234      // some 16bit userid, doesn't matter what
+#pragma config PMDL1WAY = OFF       // allow multiple reconfigurations
+#pragma config IOL1WAY = OFF        // allow multiple reconfigurations
+#pragma config FUSBIDIO = ON        // USB pins controlled by USB module
+#pragma config FVBUSONIO = ON       // USB BUSON controlled by USB module
 
-#define CS LATBbits.LATB7     // chip select pin
-#define SLAVE_ADDR 0x6B       // slave address 01101011
-#define maxLength 14          // slave address 01101011
+#define CS LATBbits.LATB7           // chip select pin
+#define SLAVE_ADDR 0x6B             // slave address 01101011
+#define maxLength 14                // slave address 01101011
 
-unsigned char whoAmI  = 0x00;   // check who am I register 
+unsigned char whoAmI  = 0x00;       // check who am I register 
+int setAX = 0;
+int setAY = 0;
+char stuff[maxLength];              // save 14 8 bit data
+char gx = 0x0000;                   // gyroscope x
+char gy = 0x0000;                   // gyroscope x
+char gz = 0x0000;                   // gyroscope x
+char ax = 0x0000;                   // gyroscope x
+char ay = 0x0000;                   // gyroscope x
+char az = 0x0000;                   // gyroscope x
+char temperature = 0x0000;          // gyroscope x
 
-char stuff[maxLength];      // save 14 8 bit data
-char gx = 0x0000;           // gyroscope x
-char gy = 0x0000;           // gyroscope x
-char gz = 0x0000;           // gyroscope x
-char ax = 0x0000;           // gyroscope x
-char ay = 0x0000;           // gyroscope x
-char az = 0x0000;           // gyroscope x
-char temp = 0x0000;         // gyroscope x
-
-//IMU
+//function prototype
 void initIMU();
 unsigned char getWhoAmI();
 void I2C_read_multiple(char add, char reg, char * data, char length);
 
-void __ISR(_TIMER_2_VECTOR, IPL5SOFT) PWMcontroller(void) { // step 1: the ISR
+void __ISR(_TIMER_2_VECTOR, IPL5SOFT) PWMcontroller(void) { 
 
-  OC1RS = 2250;
-  OC2RS = 750;
+  OC1RS = setAX;
+  OC2RS = setAY;
 
   IFS0bits.T2IF = 0;
 }
@@ -83,8 +84,8 @@ int main() {
     DDPCONbits.JTAGEN = 0;
     
     // do your TRIS and LAT commands here
-    TRISAbits.TRISA4 = 0;   //RA4 (PIN#12) for Green LED
-    TRISBbits.TRISB4 = 1;   //RB4 (PIN#11) for pushbutton
+    TRISAbits.TRISA4 = 0;         //RA4 (PIN#12) for Green LED
+    TRISBbits.TRISB4 = 1;         //RB4 (PIN#11) for pushbutton
     
     // for Timer2
     PR2 = 2999;                   // period = (PR2+1) * N * 20.8 ns = 0.001 s, 1 kHz
@@ -112,18 +113,27 @@ int main() {
     i2c_master_setup(); 
     initIMU();
     
-    RPB15Rbits.RPB15R = 0b0101; // assign OC1 to RB15
-    RPA1Rbits.RPA1R = 0b0101; // assign OC2 to RA1 
+    RPB15Rbits.RPB15R = 0b0101;   // assign OC1 to RB15
+    RPA1Rbits.RPA1R = 0b0101;     // assign OC2 to RA1 
     
-    
+    // check I2C communication
     if(getWhoAmI() == 0x69){
         LATAbits.LATA4 = 1;
     }
     
-    I2C_read_multiple(SLAVE_ADDR, 0x20, &stuff, 14);
-    
     while(1){
         _CP0_SET_COUNT(0);
+        I2C_read_multiple(SLAVE_ADDR, 0x20, stuff, 14);
+        temperature = ((stuff[1]<<8) | stuff[0]);
+        gx = ((stuff[3]<<8) | stuff[2]);
+        gy = ((stuff[5]<<8) | stuff[4]);
+        gz = ((stuff[7]<<8) | stuff[6]);
+        ax = ((stuff[9]<<8) | stuff[8]);
+        ay = ((stuff[11]<<8) | stuff[10]);
+        az = ((stuff[13]<<8) | stuff[12]);
+        
+        setAX = 1500*(ax/32767)+3000;
+        setAY = 1500*(ay/32767)+1500;
         
         while(_CP0_GET_COUNT() < 480000) { // 50 Hz
             ;
@@ -144,7 +154,7 @@ unsigned char getWhoAmI(){
     return whoAmI;
 }
 
-void initIMU(){  // no need to connect SD0
+void initIMU(){  
     // init accelerometer
     i2c_master_start();
     i2c_master_send(0xD6);    
