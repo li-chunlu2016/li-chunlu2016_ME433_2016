@@ -39,7 +39,7 @@
 #pragma config FVBUSONIO = ON // USB BUSON controlled by USB module
 
 #define CS LATBbits.LATB7 // chip select pin
-#define PI 3.14159265
+#define SLAVE_ADDR 0x6B   // slave address 01101011
 
 unsigned char read  = 0x00;
 unsigned char whoAmI  = 0x00;
@@ -47,8 +47,8 @@ unsigned char checkGP7 = 0x00;
 
 //IMU
 void initIMU();
-char getExpander();
 unsigned char getWhoAmI();
+void I2C_read_multiple(char add, char reg, unsigned char * data, char length);
 
 void __ISR(_TIMER_2_VECTOR, IPL5SOFT) PWMcontroller(void) { // step 1: the ISR
 
@@ -76,10 +76,9 @@ int main() {
     
     // do your TRIS and LAT commands here
     TRISAbits.TRISA4 = 0;   //RA4 (PIN#12) for Green LED
-    LATAbits.LATA4 = 1;
     TRISBbits.TRISB4 = 1;   //RB4 (PIN#11) for pushbutton
     
-    // for timer2
+    // for Timer2
     PR2 = 2999;                   // period = (PR2+1) * N * 20.8 ns = 0.001 s, 1 kHz
     TMR2 = 0;                     // initial TMR2 count is 0
     T2CONbits.TCKPS = 0b100;      // Timer2 prescaler N=16 (1:16)
@@ -91,7 +90,7 @@ int main() {
     OC1CONbits.OCTSEL = 0;        // select Timer2
     
     OC2CONbits.OCM = 0b110;       // PWM mode without fault pin; other OC1CON bits are defaults
-    OC2CONbits.ON = 1;            // turn on OC1
+    OC2CONbits.ON = 1;            // turn on OC2
     OC2CONbits.OC32 = 0;
     OC2CONbits.OCTSEL = 0;        // select Timer2
 
@@ -107,15 +106,21 @@ int main() {
     
     RPB15Rbits.RPB15R = 0b0101; // assign OC1 to RB15
     RPA1Rbits.RPA1R = 0b0101; // assign OC2 to RA1 
-    
+    /*
     if(getWhoAmI() == 0x69){
         LATAbits.LATA4 = 1;
     }
+    */
+    unsigned char stuff;
+        I2C_read_multiple(SLAVE_ADDR, 0x0f, &stuff, 1);
     
+    if(stuff == 0x69){
+        LATAbits.LATA4 = 1;
+    }
     while(1){
         _CP0_SET_COUNT(0);
         
-        while(_CP0_GET_COUNT() < 480000) { 
+        while(_CP0_GET_COUNT() < 480000) { // 50 Hz
             ;
         }
     }
@@ -154,5 +159,21 @@ void initIMU(){  // no need to connect SD0
     i2c_master_send(0xD6);    
     i2c_master_send(0x12);
     i2c_master_send(0b00000100);
+    i2c_master_stop();
+}
+
+void I2C_read_multiple(char add, char reg, unsigned char * data, char length){
+    i2c_master_start();
+    i2c_master_send(add << 1);    
+    i2c_master_send(reg);
+    i2c_master_restart();
+    i2c_master_send((add << 1)|1);
+    int i;
+    for(i =0 ; i < (length-1); i++){
+        data[i] = i2c_master_recv();
+        i2c_master_ack(0);
+    }
+    data[length-1] = i2c_master_recv();
+    i2c_master_ack(1);
     i2c_master_stop();
 }
