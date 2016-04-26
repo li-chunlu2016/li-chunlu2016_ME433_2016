@@ -46,13 +46,13 @@ unsigned char whoAmI  = 0x00;       // check who am I register
 int setAX = 0;
 int setAY = 0;
 char stuff[maxLength];              // save 14 8 bit data
-char gx = 0x0000;                   // gyroscope x
-char gy = 0x0000;                   // gyroscope x
-char gz = 0x0000;                   // gyroscope x
-char ax = 0x0000;                   // gyroscope x
-char ay = 0x0000;                   // gyroscope x
-char az = 0x0000;                   // gyroscope x
-char temperature = 0x0000;          // gyroscope x
+short gx = 0x0000;                  // gyroscope x
+short gy = 0x0000;                  // gyroscope x
+short gz = 0x0000;                  // gyroscope x
+short ax = 0x0000;                  // gyroscope x
+short ay = 0x0000;                  // gyroscope x
+short az = 0x0000;                  // gyroscope x
+short temperature = 0x0000;         // gyroscope x
 
 //function prototype
 void initIMU();
@@ -132,8 +132,8 @@ int main() {
         ay = ((stuff[11]<<8) | stuff[10]);
         az = ((stuff[13]<<8) | stuff[12]);
         
-        setAX = 1500*(ax/32767)+3000;
-        setAY = 1500*(ay/32767)+1500;
+        setAX = 1500*(ax/32767.0)+1500;
+        setAY = 1500*(ay/32767.0)+1500;
         
         while(_CP0_GET_COUNT() < 480000) { // 50 Hz
             ;
