@@ -56,6 +56,7 @@ short temperature = 0x0000;         // gyroscope x
 void initIMU();
 unsigned char getWhoAmI();
 void I2C_read_multiple(char add, char reg, char * data, char length);
+void printChar(unsigned char letter);
 
 int main() {
 
@@ -83,16 +84,12 @@ int main() {
     // init SPI
     SPI1_init();
     LCD_init();
-    LCD_clearScreen(BLUE);
+    LCD_clearScreen(WHITE);
     
     __builtin_enable_interrupts();
         
-    int x=0;
-    int y=0;
     // TFTLCD
-
-    //LCD_drawPixel(28, 32, BLACK); // set the x,y pixel to a color
-    
+    printChar('d');
     // check I2C communication
     if(getWhoAmI() == 0x69){
         LATAbits.LATA4 = 1;
@@ -111,6 +108,20 @@ int main() {
         
         while(_CP0_GET_COUNT() < 480000) { // 50 Hz
             ;
+        }
+    }
+}
+
+void printChar(unsigned char letter){
+    int x=0;
+    int y=0;
+    
+    for (x=0; x<5; x++) {
+        for (y=7; y>-1; y--) {
+            if (((ASCII[letter-0x20][x] >> (7-y)) & 1) == 1)
+                LCD_drawPixel(10+x, 10+(7-y), RED);
+            else
+                LCD_drawPixel(10+x, 10+(7-y), WHITE);
         }
     }
 }
