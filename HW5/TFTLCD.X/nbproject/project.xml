@@ -3,8 +3,8 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>jin</name>
-            <creation-uuid>64d3fc7f-3cdf-41cf-bb95-df0a89300922</creation-uuid>
+            <name>TFTLCD</name>
+            <creation-uuid>2aeee91c-55e2-4c51-9384-6197f07f9351</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
             <cpp-extensions/>
