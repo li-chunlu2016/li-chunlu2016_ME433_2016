@@ -45,18 +45,20 @@
 unsigned char whoAmI  = 0x00;       // check who am I register 
 char stuff[maxLength];              // save 14 8 bit data
 short gx = 0x0000;                  // gyroscope x
-short gy = 0x0000;                  // gyroscope x
-short gz = 0x0000;                  // gyroscope x
-short ax = 0x0000;                  // gyroscope x
-short ay = 0x0000;                  // gyroscope x
-short az = 0x0000;                  // gyroscope x
-short temperature = 0x0000;         // gyroscope x
+short gy = 0x0000;                  // gyroscope y
+short gz = 0x0000;                  // gyroscope z
+short ax = 0x0000;                  // accelerometer x
+short ay = 0x0000;                  // accelerometer y
+short az = 0x0000;                  // acceletometer z
+short temperature = 0x0000;         // temperature 
+char message[100];
 
 //function prototype
 void initIMU();
 unsigned char getWhoAmI();
 void I2C_read_multiple(char add, char reg, char * data, char length);
-void printChar(unsigned char letter);
+void printChar(unsigned char letter, int offsetX, int offsetY);
+void printString(char * message, int startX, int startY);
 
 int main() {
 
@@ -87,9 +89,25 @@ int main() {
     LCD_clearScreen(WHITE);
     
     __builtin_enable_interrupts();
-        
+    //printChar('h',10,20);  
     // TFTLCD
-    printChar('d');
+    sprintf(message,"Hello world 1337!");
+    printString(message,20,32);
+    sprintf(message,"gx: %3.6f",gx);
+    printString(message,20,42);
+    sprintf(message,"gy: %3.6f",gy);
+    printString(message,20,52);
+    sprintf(message,"gz: %3.6f",gz);
+    printString(message,20,62);
+    sprintf(message,"ax: %3.6f",ax);
+    printString(message,20,72);
+    sprintf(message,"ay: %3.6f",ay);
+    printString(message,20,82);
+    sprintf(message,"az: %3.6f",az);
+    printString(message,20,92);
+    sprintf(message,"temp: %3.6f",temperature);
+    printString(message,20,102);
+    
     // check I2C communication
     if(getWhoAmI() == 0x69){
         LATAbits.LATA4 = 1;
@@ -112,17 +130,28 @@ int main() {
     }
 }
 
-void printChar(unsigned char letter){
+void printChar(unsigned char letter, int offsetX, int offsetY){
     int x=0;
     int y=0;
     
     for (x=0; x<5; x++) {
         for (y=7; y>-1; y--) {
             if (((ASCII[letter-0x20][x] >> (7-y)) & 1) == 1)
-                LCD_drawPixel(10+x, 10+(7-y), RED);
+                LCD_drawPixel(offsetX+x, offsetY+(7-y), RED);
             else
-                LCD_drawPixel(10+x, 10+(7-y), WHITE);
+                LCD_drawPixel(offsetX+x, offsetY+(7-y), WHITE);
         }
+    }
+}
+
+void printString(char * message, int startX, int startY){
+    int i = 0; 
+    int xCoord = startX;
+    int yCoord = startY;
+    while(message[i]){ 
+        printChar(message[i],xCoord,yCoord);
+        xCoord = xCoord+5;
+        i++;
     }
 }
 
