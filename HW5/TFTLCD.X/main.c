@@ -93,19 +93,19 @@ int main() {
     // TFTLCD
     sprintf(message,"Hello world 1337!");
     printString(message,20,32);
-    sprintf(message,"gx: %3.6f dps",gx/32768.0);
+    sprintf(message,"gx: %3.6f dps",245*gx/32768.0);
     printString(message,12,42);
-    sprintf(message,"gy: %3.6f dps",gy/32768.0);
+    sprintf(message,"gy: %3.6f dps",245*gy/32768.0);
     printString(message,12,52);
-    sprintf(message,"gz: %3.6f dps",gz/32768.0);
+    sprintf(message,"gz: %3.6f dps",245*gz/32768.0);
     printString(message,12,62);
-    sprintf(message,"ax: %3.6f g",ax/32768.0);
+    sprintf(message,"ax: %1.4f g",2*ax/32768.0);
     printString(message,12,72);
-    sprintf(message,"ay: %3.6f g",ay/32768.0);
+    sprintf(message,"ay: %1.4f g",2*ay/32768.0);
     printString(message,12,82);
-    sprintf(message,"az: %3.6f g",az/32768.0);
+    sprintf(message,"az: %1.4f g",2*az/32768.0);
     printString(message,12,92);
-    sprintf(message,"temp: %3.6f Celsius ",temperature);
+    sprintf(message,"temp: %2.4f Celsius ",temperature/32768.0);
     printString(message,20,102);
     
     // check I2C communication
