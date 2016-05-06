@@ -137,19 +137,6 @@ int main() {
     }
 }
 
-unsigned char getWhoAmI(){
-    i2c_master_start();
-    i2c_master_send(0xD6);    
-    i2c_master_send(0x0F);
-    i2c_master_restart();
-    i2c_master_send(0xD7);
-    whoAmI = i2c_master_recv();
-    i2c_master_ack(1);
-    i2c_master_stop();
-    
-    return whoAmI;
-}
-
 void initIMU(){  
     // init accelerometer
     i2c_master_start();
@@ -171,6 +158,19 @@ void initIMU(){
     i2c_master_send(0x12);
     i2c_master_send(0b00000100);
     i2c_master_stop();
+}
+
+unsigned char getWhoAmI(){
+    i2c_master_start();
+    i2c_master_send(0xD6);    
+    i2c_master_send(0x0F);
+    i2c_master_restart();
+    i2c_master_send(0xD7);
+    whoAmI = i2c_master_recv();
+    i2c_master_ack(1);
+    i2c_master_stop();
+    
+    return whoAmI;
 }
 
 void I2C_read_multiple(char add, char reg, char * data, char length){
