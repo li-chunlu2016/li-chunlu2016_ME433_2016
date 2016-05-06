@@ -93,20 +93,6 @@ int main() {
     // TFTLCD
     sprintf(message,"Hello world 1337!");
     printString(message,20,32);
-    sprintf(message,"gx: %3.6f dps",245*gx/32768.0);
-    printString(message,12,42);
-    sprintf(message,"gy: %3.6f dps",245*gy/32768.0);
-    printString(message,12,52);
-    sprintf(message,"gz: %3.6f dps",245*gz/32768.0);
-    printString(message,12,62);
-    sprintf(message,"ax: %1.4f g",2*ax/32768.0);
-    printString(message,12,72);
-    sprintf(message,"ay: %1.4f g",2*ay/32768.0);
-    printString(message,12,82);
-    sprintf(message,"az: %1.4f g",2*az/32768.0);
-    printString(message,12,92);
-    sprintf(message,"temp: %2.4f Celsius ",temperature/32768.0);
-    printString(message,20,102);
     
     // check I2C communication
     if(getWhoAmI() == 0x69){
@@ -124,6 +110,20 @@ int main() {
         ay = ((stuff[11]<<8) | stuff[10]);
         az = ((stuff[13]<<8) | stuff[12]);
         
+        sprintf(message,"gx: %2.4f dps ",245*gx/32768.0);
+        printString(message,12,42);
+        sprintf(message,"gy: %2.4f dps ",245*gy/32768.0);
+        printString(message,12,52);
+        sprintf(message,"gz: %2.4f dps ",245*gz/32768.0);
+        printString(message,12,62);
+        sprintf(message,"ax: %2.4f g  ",2*ax/32768.0);
+        printString(message,12,72);
+        sprintf(message,"ay: %2.4f g  ",2*ay/32768.0);
+        printString(message,12,82);
+        sprintf(message,"az: %2.4f g  ",2*az/32768.0);
+        printString(message,12,92);
+        sprintf(message,"temp: %2.4f deg. C  ",25+(temperature/16.0));
+        printString(message,12,102);
         while(_CP0_GET_COUNT() < 480000) { // 50 Hz
             ;
         }
