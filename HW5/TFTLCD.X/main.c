@@ -39,7 +39,6 @@
 #pragma config FUSBIDIO = ON        // USB pins controlled by USB module
 #pragma config FVBUSONIO = ON       // USB BUSON controlled by USB module
 
-#define CS LATBbits.LATB7           // chip select pin
 #define SLAVE_ADDR 0x6B             // slave address 01101011
 #define maxLength 14                // slave address 01101011
 
@@ -58,10 +57,12 @@ void initIMU();
 unsigned char getWhoAmI();
 void I2C_read_multiple(char add, char reg, char * data, char length);
 
+/*
 void __ISR(_TIMER_2_VECTOR, IPL5SOFT) PWMcontroller(void) { 
   
   IFS0bits.T2IF = 0;
 }
+*/
 
 int main() {
 
@@ -82,13 +83,12 @@ int main() {
     // do your TRIS and LAT commands here
     TRISAbits.TRISA4 = 0;         //RA4 (PIN#12) for Green LED
     TRISBbits.TRISB4 = 1;         //RB4 (PIN#11) for pushbutton
-    
+    /*
     // for Timer2
     PR2 = 2999;                   // period = (PR2+1) * N * 20.8 ns = 0.001 s, 1 kHz
     TMR2 = 0;                     // initial TMR2 count is 0
     T2CONbits.TCKPS = 0b100;      // Timer2 prescaler N=16 (1:16)
     T2CONbits.ON = 1;             // turn on Timer2
-    /*
     OC1CONbits.OCM = 0b110;       // PWM mode without fault pin; other OC1CON bits are defaults
     OC1CONbits.ON = 1;            // turn on OC1
     OC1R = 1500;
@@ -100,11 +100,11 @@ int main() {
     OC2R = 1500;
     OC2CONbits.OC32 = 0;
     OC2CONbits.OCTSEL = 0;        // select Timer2
-    */
     IPC2bits.T2IP = 5;            // step 4: interrupt priority
     IPC2bits.T2IS = 0;            // step 4: interrupt priority
     IFS0bits.T2IF = 0;            // step 5: clear the int flag
     IEC0bits.T2IE = 1;            // step 6: enable Timer2 by setting IEC0<11>
+    */
     
     __builtin_enable_interrupts();
     
@@ -114,6 +114,11 @@ int main() {
     // init SPI
     SPI1_init();
     LCD_init();
+    LCD_clearScreen(BLACK);     
+    int x=0;
+    int y=0;
+    // TFTLCD
+    //LCD_drawPixel(28, 32, BLACK); // set the x,y pixel to a color
     
     // check I2C communication
     if(getWhoAmI() == 0x69){
