@@ -72,7 +72,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 threshold = progress;
-                myTextView.setText("The value is: "+progress);
+                myTextView.setText("Threshold: "+progress);
             }
 
             @Override
@@ -128,6 +128,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
             int[] pixels3 = new int[bmp.getWidth()];
             int[] pixels4 = new int[bmp.getWidth()];
             int[] pixels5 = new int[bmp.getWidth()];
+
 
             int startY = 50; // which row in the bitmap to analyse to read
             int startY1 = 100;
@@ -304,7 +305,12 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
             canvas.drawCircle(COM5, startY5, 5, paint1);
 
             // also write the value as text
-            canvas.drawText("COM = " + COM, 10, 200, paint1);
+            canvas.drawText("COM = " + COM, 10, 50, paint1);
+            canvas.drawText("COM1 = " + COM1, 10, 100, paint1);
+            canvas.drawText("COM2 = " + COM2, 10, 150, paint1);
+            canvas.drawText("COM3 = " + COM3, 10, 200, paint1);
+            canvas.drawText("COM4 = " + COM4, 10, 300, paint1);
+            canvas.drawText("COM5 = " + COM5, 10, 400, paint1);
             //canvas.drawText("R = " + red(pixels[320]), 10, 220, paint1);
             //canvas.drawText("G = " + green(pixels[320]), 10, 240, paint1);
             //canvas.drawText("B = " + blue(pixels[320]), 10, 260, paint1);
