@@ -130,10 +130,10 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
         mTitleTextView = (TextView) findViewById(R.id.demoTitle);
         mDumpTextView = (TextView) findViewById(R.id.consoleText);
         mScrollView = (ScrollView) findViewById(R.id.demoScroller);
-        chkDTR = (CheckBox) findViewById(R.id.checkBoxDTR);
-        chkRTS = (CheckBox) findViewById(R.id.checkBoxRTS);
+        //chkDTR = (CheckBox) findViewById(R.id.checkBoxDTR);
+        //chkRTS = (CheckBox) findViewById(R.id.checkBoxRTS);
 
-        chkDTR.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+/*        chkDTR.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 try {
@@ -151,7 +151,7 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
                 } catch (IOException x) {
                 }
             }
-        });
+        });*/
 
         mSurfaceView = (SurfaceView) findViewById(R.id.surfaceview);
         mSurfaceHolder = mSurfaceView.getHolder();
@@ -169,6 +169,7 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
         myTextView.setText("Enter whatever you Like!");
         setMyControlListener();
         threshold = 150;
+
     }
 
     private void setMyControlListener() {
@@ -179,6 +180,7 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 threshold = progress;
                 myTextView.setText("Threshold: "+progress);
+
             }
 
             @Override
@@ -422,6 +424,8 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
             //canvas.drawText("G = " + green(pixels[320]), 10, 240, paint1);
             //canvas.drawText("B = " + blue(pixels[320]), 10, 260, paint1);
             c.drawBitmap(bmp, 0, 0, null);
+
+
             mSurfaceHolder.unlockCanvasAndPost(c);
 
             // calculate the FPS to see how fast the code is running
@@ -517,11 +521,12 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
     }
 
     private void updateReceivedData(byte[] data) {
-        final String message = "Read " + data.length + " bytes: \n"
+/*        final String message = "Read " + data.length + " bytes: \n"
                 + HexDump.dumpHexString(data) + "\n\n";
         mDumpTextView.append(message);
         mScrollView.smoothScrollTo(0, mDumpTextView.getBottom());
-        byte[] sData = {'a',0}; try { sPort.write(sData, 10); } catch (IOException e) { }
+        byte[] sData = {'a',0}; try { sPort.write(sData, 10); } catch (IOException e) { }*/
+
     }
 
     /**

@@ -20,7 +20,7 @@
         android:layout_height="1dip"
         android:background="#eeeeee" />
 
-    <CheckBox
+<!--    <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/textBtnDTR"
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/textBtnRTS"
-        android:id="@+id/checkBoxRTS" />
+        android:id="@+id/checkBoxRTS" />-->
 
     <View
         android:id="@+id/separator2"
@@ -75,6 +75,14 @@
         android:layout_height="wrap_content"
         android:text="Nothing yet"
         android:id="@+id/cameraStatus"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No PIC reply"
+        android:id="@+id/picReply"
+        android:layout_above="@+id/textureview"
+        android:layout_alignRight="@+id/textureview" />
 
     <SurfaceView
         android:id="@+id/surfaceview"
