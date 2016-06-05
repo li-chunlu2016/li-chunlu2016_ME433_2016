@@ -116,6 +116,7 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
     private Paint paint1 = new Paint();
     private TextView mTextView;
     private int threshold;
+    private TextView mPicTextView;
 
     static long prevtime = 0; // for FPS calculation
 
@@ -158,6 +159,7 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
         mTextureView = (TextureView) findViewById(R.id.textureview);
         mTextureView.setSurfaceTextureListener(this);
         mTextView = (TextView) findViewById(R.id.cameraStatus);
+        mPicTextView = (TextView) findViewById(R.id.picReply);
 
         paint1.setColor(0xffff0000); // red
         paint1.setTextSize(24);
@@ -180,6 +182,14 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 threshold = progress;
                 myTextView.setText("Threshold: "+progress);
+
+                // Transmit points to PIC
+                String sendString = String.valueOf(threshold)+"\n";
+                try
+                {
+                    sPort.write(sendString.getBytes(), 16);
+                }
+                catch (IOException e) {}
 
             }
 
@@ -526,6 +536,8 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
         mDumpTextView.append(message);
         mScrollView.smoothScrollTo(0, mDumpTextView.getBottom());
         byte[] sData = {'a',0}; try { sPort.write(sData, 10); } catch (IOException e) { }*/
+        String s = new String(data);
+        mPicTextView.setText("Bytes: " + data.length + "\r\n" + s);
 
     }
 
